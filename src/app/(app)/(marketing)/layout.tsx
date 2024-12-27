@@ -1,11 +1,10 @@
+import '../css/style.css'
 import Theme from '../theme-provider'
 import { Caveat, Inter } from 'next/font/google'
 import localFont from 'next/font/local'
 
 import QuoteTitle from '@/components/quote-title'
 import Header from '@/components/ui/header'
-
-import './css/style.css'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -22,7 +21,7 @@ const caveat = Caveat({
 const orbiter = localFont({
   src: [
     {
-      path: '../public/fonts/OrbiterDisplay-Bold.woff',
+      path: './fonts/OrbiterDisplay-Bold.woff',
       weight: '700',
     },
   ],
