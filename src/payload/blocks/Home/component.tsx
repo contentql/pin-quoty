@@ -1,40 +1,71 @@
-import { Params } from '../types'
-import { HomeType } from '@payload-types'
-import Image from 'next/image'
+import Brief from '@/components/brief'
+import CostsList from '@/components/costs-list'
+import Cta from '@/components/cta'
+import QuoteDetails from '@/components/quote-details'
+import Terms from '@/components/terms'
 
-interface HomeProps extends HomeType {
-  params: Params
+export const metadata = {
+  title: 'Home - Quoty',
+  description: 'Page description',
 }
 
-const Home: React.FC<HomeProps> = ({ params, ...block }) => {
-  const imageURL =
-    typeof block.image !== 'object'
-      ? undefined
-      : {
-          url: block.image?.url!,
-          alt: block.image.alt || 'Hero section image',
-        }
+export default function Home() {
+  const costs = [
+    {
+      title: 'Competitive Analysis',
+      description: 'The client is looking to review the information.',
+      price: 7800,
+    },
+    {
+      title: 'UX Research Reports',
+      description: 'The client is looking to review the information.',
+      price: 2560,
+    },
+    {
+      title: 'Sitemap and Information Architecture',
+      description: 'The client is looking to review the information.',
+      price: 1420,
+    },
+    {
+      title: 'UX Wireframes and User Flows',
+      description: 'The client is looking to review the information.',
+      price: 3978,
+    },
+    {
+      title: 'Visual Design',
+      description: 'The client is looking to review the information.',
+      price: 4476,
+    },
+    {
+      title: 'Interactive Prototypes + Assets Exports',
+      description: 'The client is looking to review the information.',
+      price: 4326,
+    },
+  ]
 
   return (
-    <section className='flex flex-col-reverse items-center justify-between gap-6 px-0 md:flex-row'>
-      <div className='max-w-lg space-y-3 text-balance'>
-        <h1 className='text-2xl font-semibold md:text-5xl'>{block.heading}</h1>
-        <p className='text-secondary md:text-xl'>{block?.subHeading}</p>
-      </div>
-
-      <div className='relative aspect-square w-full max-w-lg overflow-hidden rounded bg-secondary'>
-        {imageURL && (
-          <Image
-            src={imageURL.url}
-            className='h-full w-full animate-image-blur object-cover object-center'
-            fill
-            sizes='900px'
-            alt={imageURL.alt}
+    <>
+      <div className='mx-auto w-full max-w-xl grow px-4 py-12 sm:px-6 lg:pb-20 lg:pt-24'>
+        <article className='-mt-8 mb-4 divide-y divide-slate-100 dark:divide-slate-800'>
+          <Brief>
+            The client is looking to review and revamp the information
+            architecture, user experience and user interface design of{' '}
+            <strong className='font-medium text-slate-900 dark:text-slate-200'>
+              The Markyk Corp.
+            </strong>
+            , a web application that connects landlords and tenants across
+            Europe and America.
+          </Brief>
+          <QuoteDetails
+            projectLength='4-8 Weeks'
+            startDate='27 Jun, 2024'
+            endDate='27 Aug, 2024'
           />
-        )}
+          <CostsList costs={costs} />
+          <Terms />
+        </article>
       </div>
-    </section>
+      <Cta />
+    </>
   )
 }
-
-export default Home
