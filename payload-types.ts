@@ -442,6 +442,7 @@ export interface User {
         id?: string | null;
       }[]
     | null;
+  bio?: string | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -846,6 +847,7 @@ export interface UsersSelect<T extends boolean = true> {
         value?: T;
         id?: T;
       };
+  bio?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;

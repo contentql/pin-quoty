@@ -9,6 +9,7 @@ import { blocksConfig } from '@/payload/blocks/blockConfig'
 import { CostsBreakdown } from '@/payload/collections/CostsBreakdown'
 import { Quotes } from '@/payload/collections/Quotes'
 import { Terms } from '@/payload/collections/Terms'
+import { revalidateAuthors } from '@/payload/hooks/revalidateAuthors'
 import { revalidateBlogs } from '@/payload/hooks/revalidateBlogs'
 import { revalidatePages } from '@/payload/hooks/revalidatePages'
 import { revalidateSiteSettings } from '@/payload/hooks/revalidateSiteSettings'
@@ -62,6 +63,44 @@ export default cqlConfig({
   blocks: blocksConfig,
 
   collections: [
+    {
+      slug: collectionSlug.users,
+      fields: [
+        {
+          name: 'bio',
+          type: 'text',
+          admin: {
+            description: 'This bio will be shown in the authors details page',
+          },
+        },
+      ],
+
+      hooks: {
+        afterChange: [revalidateAuthors],
+      },
+    },
+    {
+      slug: collectionSlug.pages,
+      fields: [],
+      hooks: {
+        afterChange: [revalidatePages],
+      },
+    },
+    {
+      slug: collectionSlug.blogs,
+      fields: [],
+      hooks: {
+        afterChange: [revalidateBlogs],
+      },
+    },
+    {
+      slug: collectionSlug.tags,
+      fields: [],
+      hooks: {
+        afterChange: [revalidateTags],
+      },
+    },
+
     Quotes,
     CostsBreakdown,
     Terms,
