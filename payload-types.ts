@@ -16,6 +16,9 @@ export interface Config {
     tags: Tag;
     media: Media;
     users: User;
+    quotes: Quote;
+    costsBreakdown: CostsBreakdown;
+    terms: Term;
     forms: Form;
     'form-submissions': FormSubmission;
     search: Search;
@@ -30,6 +33,9 @@ export interface Config {
     tags: TagsSelect<false> | TagsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    quotes: QuotesSelect<false> | QuotesSelect<true>;
+    costsBreakdown: CostsBreakdownSelect<false> | CostsBreakdownSelect<true>;
+    terms: TermsSelect<false> | TermsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
     search: SearchSelect<false> | SearchSelect<true>;
@@ -436,7 +442,6 @@ export interface User {
         id?: string | null;
       }[]
     | null;
-  bio?: string | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -444,11 +449,68 @@ export interface User {
   resetPasswordExpiration?: string | null;
   salt?: string | null;
   hash?: string | null;
-  _verified?: boolean | null;
-  _verificationToken?: string | null;
   loginAttempts?: number | null;
   lockUntil?: string | null;
   password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "quotes".
+ */
+export interface Quote {
+  id: number;
+  heading?: string | null;
+  quote?: string | null;
+  date?: string | null;
+  aboutHeading?: string | null;
+  aboutQuote?: string | null;
+  detailsHeading?: string | null;
+  details?:
+    | {
+        title?: string | null;
+        duration?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  costsBreakdownHeading?: string | null;
+  selectCostBreakdowns?: (number | null) | CostsBreakdown;
+  termsHeading?: string | null;
+  selectTerms?: (number | null) | Term;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "costsBreakdown".
+ */
+export interface CostsBreakdown {
+  id: number;
+  costsBreakdown?:
+    | {
+        title?: string | null;
+        description?: string | null;
+        cost?: number | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "terms".
+ */
+export interface Term {
+  id: number;
+  terms?:
+    | {
+        title?: string | null;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -517,6 +579,18 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'users';
         value: number | User;
+      } | null)
+    | ({
+        relationTo: 'quotes';
+        value: number | Quote;
+      } | null)
+    | ({
+        relationTo: 'costsBreakdown';
+        value: number | CostsBreakdown;
+      } | null)
+    | ({
+        relationTo: 'terms';
+        value: number | Term;
       } | null)
     | ({
         relationTo: 'forms';
@@ -772,7 +846,6 @@ export interface UsersSelect<T extends boolean = true> {
         value?: T;
         id?: T;
       };
-  bio?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -780,10 +853,64 @@ export interface UsersSelect<T extends boolean = true> {
   resetPasswordExpiration?: T;
   salt?: T;
   hash?: T;
-  _verified?: T;
-  _verificationToken?: T;
   loginAttempts?: T;
   lockUntil?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "quotes_select".
+ */
+export interface QuotesSelect<T extends boolean = true> {
+  heading?: T;
+  quote?: T;
+  date?: T;
+  aboutHeading?: T;
+  aboutQuote?: T;
+  detailsHeading?: T;
+  details?:
+    | T
+    | {
+        title?: T;
+        duration?: T;
+        id?: T;
+      };
+  costsBreakdownHeading?: T;
+  selectCostBreakdowns?: T;
+  termsHeading?: T;
+  selectTerms?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "costsBreakdown_select".
+ */
+export interface CostsBreakdownSelect<T extends boolean = true> {
+  costsBreakdown?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        cost?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "terms_select".
+ */
+export interface TermsSelect<T extends boolean = true> {
+  terms?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

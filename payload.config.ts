@@ -5,10 +5,10 @@ import { slateEditor } from '@payloadcms/richtext-slate'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
-import { ResetPassword } from '@/emails/reset-password'
-import { UserAccountVerification } from '@/emails/verify-email'
 import { blocksConfig } from '@/payload/blocks/blockConfig'
-import { revalidateAuthors } from '@/payload/hooks/revalidateAuthors'
+import { CostsBreakdown } from '@/payload/collections/CostsBreakdown'
+import { Quotes } from '@/payload/collections/Quotes'
+import { Terms } from '@/payload/collections/Terms'
 import { revalidateBlogs } from '@/payload/hooks/revalidateBlogs'
 import { revalidatePages } from '@/payload/hooks/revalidatePages'
 import { revalidateSiteSettings } from '@/payload/hooks/revalidateSiteSettings'
@@ -62,42 +62,9 @@ export default cqlConfig({
   blocks: blocksConfig,
 
   collections: [
-    {
-      slug: collectionSlug.users,
-      fields: [
-        {
-          name: 'bio',
-          type: 'text',
-          admin: {
-            description: 'This bio will be shown in the authors details page',
-          },
-        },
-      ],
-      auth: {
-        verify: {
-          generateEmailHTML: ({ token, user }) => {
-            return UserAccountVerification({
-              actionLabel: 'verify your account',
-              buttonText: 'Verify Account',
-              userName: user.username,
-              image: user.avatar,
-              href: `${env.PAYLOAD_URL}/verify-email?token=${token}&id=${user.id}`,
-            })
-          },
-        },
-        forgotPassword: {
-          generateEmailHTML: args => {
-            return ResetPassword({
-              resetPasswordLink: `${env.PAYLOAD_URL}/reset-password?token=${args?.token}`,
-              userFirstName: args?.user.username,
-            })
-          },
-        },
-      },
-      hooks: {
-        afterChange: [revalidateAuthors],
-      },
-    },
+    Quotes,
+    CostsBreakdown,
+    Terms,
     {
       slug: collectionSlug.pages,
       fields: [],
