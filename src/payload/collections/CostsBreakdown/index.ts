@@ -13,44 +13,45 @@ export const CostsBreakdown: CustomCollectionConfig = {
     update: isAdmin,
     delete: isAdmin,
   },
+  admin: {
+    useAsTitle: 'title',
+  },
   fields: [
     {
-      name: 'costsBreakdown',
-      label: 'Costs Breakdown',
-      type: 'array',
+      name: 'title',
+      label: 'Title',
+      type: 'text',
+      required: true,
       admin: {
         description:
-          'An array of cost details, including titles, descriptions, and associated costs.',
+          "The title or name of the cost item (e.g., 'Hosting Fee').",
       },
-      fields: [
-        {
-          name: 'title',
-          label: 'Title',
-          type: 'text',
-          admin: {
-            description:
-              "The title or name of the cost item (e.g., 'Hosting Fee').",
-          },
-        },
-        {
-          name: 'description',
-          label: 'Description',
-          type: 'text',
-          admin: {
-            description:
-              "A brief description of the cost item (e.g., 'Monthly website hosting').",
-          },
-        },
-        {
-          name: 'cost',
-          label: 'Cost',
-          type: 'number',
-          admin: {
-            description:
-              'The monetary cost associated with the item (e.g., 100 for $100).',
-          },
-        },
-      ],
+    },
+    {
+      name: 'description',
+      label: 'Description',
+      type: 'textarea',
+      admin: {
+        description:
+          "A brief description of the cost item (e.g., 'Monthly website hosting').",
+      },
+    },
+    {
+      name: 'cost',
+      label: 'Cost',
+      type: 'number',
+      admin: {
+        description:
+          'The monetary cost associated with the item (e.g., 100 for $100).',
+      },
+    },
+    {
+      name: 'content',
+      type: 'richText',
+      label: 'Content',
+      admin: {
+        description: 'Detailed information about the cost breakdown.',
+      },
     },
   ],
 }

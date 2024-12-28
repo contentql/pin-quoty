@@ -1,17 +1,26 @@
 import { isAdmin } from '../../access'
 import { CustomCollectionConfig } from '@contentql/core'
 
+import { revalidateQuotes } from '@/payload/hooks/revalidateQuotes'
+import { formatSlug } from '@/utils/formatSlug'
+
 export const Quotes: CustomCollectionConfig = {
   slug: 'quotes',
   labels: {
     singular: 'Quote',
     plural: 'Quotes',
   },
+  admin: {
+    useAsTitle: 'quote',
+  },
   access: {
     read: () => true,
     create: isAdmin,
     update: isAdmin,
     delete: isAdmin,
+  },
+  versions: {
+    drafts: true,
   },
   fields: [
     {
@@ -106,6 +115,7 @@ export const Quotes: CustomCollectionConfig = {
       label: 'Select Cost Breakdowns',
       type: 'relationship',
       relationTo: 'costsBreakdown',
+      hasMany: true,
     },
     {
       name: 'termsHeading',
@@ -117,6 +127,32 @@ export const Quotes: CustomCollectionConfig = {
       label: 'Select Terms',
       type: 'relationship',
       relationTo: 'terms',
+      hasMany: true,
+    },
+    {
+      name: 'slug',
+      label: 'Slug',
+      type: 'text',
+      index: true,
+      required: false,
+      admin: {
+        description: 'Contains only lowercase letters, numbers, and dashes.',
+        position: 'sidebar',
+        components: {
+          Field: {
+            path: '@contentql/core/client#CustomSlugField',
+            clientProps: {
+              fieldToUse: String('quote'),
+            },
+          },
+        },
+      },
+      hooks: {
+        beforeValidate: [formatSlug('quote')],
+      },
     },
   ],
+  hooks: {
+    afterChange: [revalidateQuotes],
+  },
 }
