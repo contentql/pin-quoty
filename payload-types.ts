@@ -174,7 +174,7 @@ export interface Media {
  * via the `definition` "DetailsType".
  */
 export interface DetailsType {
-  collectionSlug?: ('blogs' | 'tags' | 'users') | null;
+  collectionSlug?: ('blogs' | 'tags' | 'users' | 'quotes') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'Details';
@@ -185,7 +185,7 @@ export interface DetailsType {
  */
 export interface ListType {
   title?: string | null;
-  collectionSlug?: ('blogs' | 'tags' | 'users') | null;
+  collectionSlug?: ('blogs' | 'tags' | 'users' | 'quotes') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'List';
@@ -474,11 +474,13 @@ export interface Quote {
       }[]
     | null;
   costsBreakdownHeading?: string | null;
-  selectCostBreakdowns?: (number | null) | CostsBreakdown;
+  selectCostBreakdowns?: (number | CostsBreakdown)[] | null;
   termsHeading?: string | null;
-  selectTerms?: (number | null) | Term;
+  selectTerms?: (number | Term)[] | null;
+  slug?: string | null;
   updatedAt: string;
   createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -486,12 +488,12 @@ export interface Quote {
  */
 export interface CostsBreakdown {
   id: number;
-  costsBreakdown?:
+  title: string;
+  description?: string | null;
+  cost?: number | null;
+  content?:
     | {
-        title?: string | null;
-        description?: string | null;
-        cost?: number | null;
-        id?: string | null;
+        [k: string]: unknown;
       }[]
     | null;
   updatedAt: string;
@@ -503,13 +505,8 @@ export interface CostsBreakdown {
  */
 export interface Term {
   id: number;
-  terms?:
-    | {
-        title?: string | null;
-        description?: string | null;
-        id?: string | null;
-      }[]
-    | null;
+  title: string;
+  description?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -880,22 +877,20 @@ export interface QuotesSelect<T extends boolean = true> {
   selectCostBreakdowns?: T;
   termsHeading?: T;
   selectTerms?: T;
+  slug?: T;
   updatedAt?: T;
   createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "costsBreakdown_select".
  */
 export interface CostsBreakdownSelect<T extends boolean = true> {
-  costsBreakdown?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-        cost?: T;
-        id?: T;
-      };
+  title?: T;
+  description?: T;
+  cost?: T;
+  content?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -904,13 +899,8 @@ export interface CostsBreakdownSelect<T extends boolean = true> {
  * via the `definition` "terms_select".
  */
 export interface TermsSelect<T extends boolean = true> {
-  terms?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-        id?: T;
-      };
+  title?: T;
+  description?: T;
   updatedAt?: T;
   createdAt?: T;
 }

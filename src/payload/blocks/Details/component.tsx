@@ -7,6 +7,7 @@ import { getPayload } from 'payload'
 
 import AuthorDetails from './components/AuthorDetails'
 import BlogDetails from './components/BlogDetails'
+import QuoteDetailsComponent from './components/QuoteDetailsComponent'
 import TagDetails from './components/TagDetails'
 
 interface DetailsProps extends DetailsType {
@@ -128,6 +129,35 @@ const Details: React.FC<DetailsProps> = async ({ params, ...block }) => {
       if (typeof author === 'object') {
         return <AuthorDetails author={author} blogsData={blogs} />
       }
+    }
+
+    case 'quotes': {
+      const slug = params?.route?.at(-1) ?? ''
+
+      const { docs } = await unstable_cache(
+        async () =>
+          await payload.find({
+            collection: 'quotes',
+            draft: false,
+            where: {
+              slug: {
+                equals: slug,
+              },
+            },
+          }),
+        ['details', 'quotes', slug],
+        { tags: [`details-quotes-${slug}`] },
+      )()
+
+      const quote = docs.at(0)
+      console.log('quote...', quote)
+
+      // if blog not found showing 404
+      if (!quote) {
+        return notFound()
+      }
+
+      return <QuoteDetailsComponent quote={quote} />
     }
   }
 }

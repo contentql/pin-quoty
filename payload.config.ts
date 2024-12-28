@@ -79,27 +79,6 @@ export default cqlConfig({
         afterChange: [revalidateAuthors],
       },
     },
-    {
-      slug: collectionSlug.pages,
-      fields: [],
-      hooks: {
-        afterChange: [revalidatePages],
-      },
-    },
-    {
-      slug: collectionSlug.blogs,
-      fields: [],
-      hooks: {
-        afterChange: [revalidateBlogs],
-      },
-    },
-    {
-      slug: collectionSlug.tags,
-      fields: [],
-      hooks: {
-        afterChange: [revalidateTags],
-      },
-    },
 
     Quotes,
     CostsBreakdown,
