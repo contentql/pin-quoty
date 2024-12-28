@@ -5,6 +5,8 @@ import { unstable_cache } from 'next/cache'
 import { getPayload } from 'payload'
 import React from 'react'
 
+import NotFound from '@/app/(app)/not-found'
+
 import AuthorsList from './components/AuthorsList'
 import BlogsList from './components/BlogsList'
 import TagsList from './components/TagsList'
@@ -109,6 +111,21 @@ const List: React.FC<ListProps> = async ({ params, ...block }) => {
           block={block}
         />
       )
+    }
+    case 'quotes': {
+      const { docs: quotes = [] } = await unstable_cache(
+        async () =>
+          await payload.find({
+            collection: 'quotes',
+            depth: 5,
+            draft: false,
+            limit: 1000,
+          }),
+        ['list', 'quotes'],
+        { tags: ['list-quotes'] },
+      )()
+
+      return <NotFound />
     }
   }
 }
