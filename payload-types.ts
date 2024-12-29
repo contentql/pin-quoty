@@ -174,7 +174,7 @@ export interface Media {
  * via the `definition` "DetailsType".
  */
 export interface DetailsType {
-  collectionSlug?: ('blogs' | 'tags' | 'users' | 'quotes') | null;
+  collectionSlug?: ('blogs' | 'tags' | 'users' | 'quotes' | 'costsBreakdown') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'Details';
@@ -185,7 +185,7 @@ export interface DetailsType {
  */
 export interface ListType {
   title?: string | null;
-  collectionSlug?: ('blogs' | 'tags' | 'users' | 'quotes') | null;
+  collectionSlug?: ('blogs' | 'tags' | 'users' | 'quotes' | 'costsBreakdown') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'List';
@@ -496,6 +496,7 @@ export interface CostsBreakdown {
         [k: string]: unknown;
       }[]
     | null;
+  slug?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -891,6 +892,7 @@ export interface CostsBreakdownSelect<T extends boolean = true> {
   description?: T;
   cost?: T;
   content?: T;
+  slug?: T;
   updatedAt?: T;
   createdAt?: T;
 }

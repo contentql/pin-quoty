@@ -1,6 +1,9 @@
 import { isAdmin } from '../../access'
 import { CustomCollectionConfig } from '@contentql/core'
 
+import { revalidateCostsBreakdown } from '@/payload/hooks/revalidateCostsBreakdown'
+import { formatSlug } from '@/utils/formatSlug'
+
 export const CostsBreakdown: CustomCollectionConfig = {
   slug: 'costsBreakdown',
   labels: {
@@ -16,6 +19,7 @@ export const CostsBreakdown: CustomCollectionConfig = {
   admin: {
     useAsTitle: 'title',
   },
+
   fields: [
     {
       name: 'title',
@@ -53,5 +57,30 @@ export const CostsBreakdown: CustomCollectionConfig = {
         description: 'Detailed information about the cost breakdown.',
       },
     },
+    {
+      name: 'slug',
+      label: 'Slug',
+      type: 'text',
+      index: true,
+      required: false,
+      admin: {
+        description: 'Contains only lowercase letters, numbers, and dashes.',
+        position: 'sidebar',
+        components: {
+          Field: {
+            path: '@contentql/core/client#CustomSlugField',
+            clientProps: {
+              fieldToUse: String('title'),
+            },
+          },
+        },
+      },
+      hooks: {
+        beforeValidate: [formatSlug('title')],
+      },
+    },
   ],
+  hooks: {
+    afterChange: [revalidateCostsBreakdown],
+  },
 }

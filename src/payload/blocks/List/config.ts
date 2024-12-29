@@ -38,6 +38,10 @@ const ListConfig: Block = {
           label: 'Quotes',
           value: 'quotes',
         },
+        {
+          label: 'CostsBreakdown',
+          value: 'costsBreakdown',
+        },
       ],
     },
   ],

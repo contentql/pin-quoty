@@ -7,6 +7,7 @@ import { getPayload } from 'payload'
 
 import AuthorDetails from './components/AuthorDetails'
 import BlogDetails from './components/BlogDetails'
+import CostsBreakdownDetails from './components/CostsBreakdownDetails'
 import QuoteDetailsComponent from './components/QuoteDetailsComponent'
 import TagDetails from './components/TagDetails'
 
@@ -150,14 +151,41 @@ const Details: React.FC<DetailsProps> = async ({ params, ...block }) => {
       )()
 
       const quote = docs.at(0)
-      console.log('quote...', quote)
 
       // if blog not found showing 404
       if (!quote) {
         return notFound()
       }
 
-      return <QuoteDetailsComponent quote={quote} />
+      return <QuoteDetailsComponent quote={quote} slug={slug} />
+    }
+
+    case 'costsBreakdown': {
+      const slug = params?.route?.at(-1) ?? ''
+
+      const { docs } = await unstable_cache(
+        async () =>
+          await payload.find({
+            collection: 'costsBreakdown',
+            draft: false,
+            where: {
+              slug: {
+                equals: slug,
+              },
+            },
+          }),
+        ['details', 'costsBreakdown', slug],
+        { tags: [`details-costsBreakdown-${slug}`] },
+      )()
+
+      const costsBreakdown = docs.at(0)
+
+      // if blog not found showing 404
+      if (!costsBreakdown) {
+        return notFound()
+      }
+
+      return <CostsBreakdownDetails costsBreakdown={costsBreakdown} />
     }
   }
 }

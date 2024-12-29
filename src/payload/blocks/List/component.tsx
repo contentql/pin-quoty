@@ -127,6 +127,21 @@ const List: React.FC<ListProps> = async ({ params, ...block }) => {
 
       return <NotFound />
     }
+    case 'costsBreakdown': {
+      const { docs: quotes = [] } = await unstable_cache(
+        async () =>
+          await payload.find({
+            collection: 'costsBreakdown',
+            depth: 5,
+            draft: false,
+            limit: 1000,
+          }),
+        ['list', 'costsBreakdown'],
+        { tags: ['list-costsBreakdown'] },
+      )()
+
+      return <NotFound />
+    }
   }
 }
 

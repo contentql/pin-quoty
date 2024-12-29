@@ -2,9 +2,11 @@ import { CostsBreakdown, CostsBreakdownSelect } from '@payload-types'
 import Link from 'next/link'
 
 export default function CostsList({
+  slug,
   costsBreakdowns,
   costsBreakdownHeading,
 }: {
+  slug: string
   costsBreakdowns: (number | CostsBreakdown)[] | null | undefined
   costsBreakdownHeading: string | null | undefined
 }) {
@@ -36,7 +38,7 @@ export default function CostsList({
                   <div className='mb-0.5 font-semibold'>
                     <Link
                       className='before:absolute before:inset-0 before:z-20 before:rounded-lg'
-                      href='/details'>
+                      href={`/quote/${slug}/costs-breakdown/${(costBreakdown as CostsBreakdownSelect)?.slug}`}>
                       {(costBreakdown as CostsBreakdownSelect)?.title}
                     </Link>
                   </div>
