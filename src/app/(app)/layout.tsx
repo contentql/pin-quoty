@@ -1,9 +1,9 @@
 import { env } from '@env'
 import configPromise from '@payload-config'
-import { GeistMono } from 'geist/font/mono'
-import { GeistSans } from 'geist/font/sans'
 import type { Metadata, Viewport } from 'next'
 import { unstable_cache } from 'next/cache'
+import { Caveat, Inter } from 'next/font/google'
+import localFont from 'next/font/local'
 import { getPayload } from 'payload'
 import { Toaster } from 'sonner'
 
@@ -83,6 +83,29 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+})
+
+const caveat = Caveat({
+  subsets: ['latin'],
+  variable: '--font-caveat',
+  display: 'swap',
+})
+
+const orbiter = localFont({
+  src: [
+    {
+      path: './fonts/OrbiterDisplay-Bold.woff',
+      weight: '700',
+    },
+  ],
+  variable: '--font-orbiter',
+  display: 'swap',
+})
+
 export const viewport: Viewport = {
   themeColor: 'dark',
   initialScale: 1,
@@ -102,7 +125,7 @@ export default async function RootLayout({
       : '/favicon.ico'
 
   return (
-    <html lang='en' className='dark'>
+    <html lang='en' className='dark' suppressHydrationWarning>
       <head>
         <link rel='icon' type='image/x-icon' href={faviconUrl} />
 
@@ -111,7 +134,7 @@ export default async function RootLayout({
       </head>
 
       <body
-        className={`${GeistSans.className} ${GeistMono.variable} antialiased`}>
+        className={`${inter.variable} ${caveat.variable} ${orbiter.variable} font-inter bg-white tracking-tight text-slate-800 antialiased dark:bg-slate-950 dark:text-slate-200`}>
         <Provider>{children}</Provider>
 
         {/* Sonnar toast library */}
