@@ -90,11 +90,17 @@ export interface Page {
   meta?: {
     title?: string | null;
     description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
     image?: (number | null) | Media;
   };
   isHome?: boolean | null;
   isDynamic?: boolean | null;
   slugMode?: ('generate' | 'custom') | null;
+  /**
+   * Contains only lowercase letters, numbers, and dashes.
+   */
   slug?: string | null;
   pathMode?: ('generate' | 'custom') | null;
   path?: string | null;
@@ -184,6 +190,9 @@ export interface DetailsType {
  * via the `definition` "ListType".
  */
 export interface ListType {
+  /**
+   * This will be used as title for the list
+   */
   title?: string | null;
   collectionSlug?: ('blogs' | 'tags' | 'users' | 'quotes' | 'costsBreakdown') | null;
   id?: string | null;
@@ -299,6 +308,9 @@ export interface Form {
       )[]
     | null;
   submitButtonLabel?: string | null;
+  /**
+   * Choose whether to display an on-page message or redirect to a different page after they submit the form.
+   */
   confirmationType?: ('message' | 'redirect') | null;
   confirmationMessage?:
     | {
@@ -308,6 +320,9 @@ export interface Form {
   redirect?: {
     url: string;
   };
+  /**
+   * Send custom emails when the form submits. Use comma separated lists to send the same email to multiple recipients. To reference a value from this form, wrap that field's name with double curly brackets, i.e. {{firstName}}. You can use a wildcard {{*}} to output all data and {{*:table}} to format it as an HTML table in the email.
+   */
   emails?:
     | {
         emailTo?: string | null;
@@ -316,6 +331,9 @@ export interface Form {
         replyTo?: string | null;
         emailFrom?: string | null;
         subject: string;
+        /**
+         * Enter the message that should be sent in this email.
+         */
         message?:
           | {
               [k: string]: unknown;
@@ -347,6 +365,9 @@ export interface FormType {
  */
 export interface DisqusCommentsType {
   title?: string | null;
+  /**
+   * To find your Disqus shortname, log into Disqus, access the Admin panel, and check the URL or General Site Settings.
+   */
   shortName: string;
   id?: string | null;
   blockName?: string | null;
@@ -358,8 +379,14 @@ export interface DisqusCommentsType {
  */
 export interface Blog {
   id: number;
+  /**
+   * Upload blog image
+   */
   blogImage: number | Media;
   title: string;
+  /**
+   * Add the summary of the blog post
+   */
   description: string;
   tags?:
     | {
@@ -373,15 +400,27 @@ export interface Blog {
         value: number | User;
       }[]
     | null;
+  /**
+   * Main content of the blog post. Use the rich text editor for formatting.
+   */
   content: {
     [k: string]: unknown;
   }[];
   meta?: {
     title?: string | null;
     description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
     image?: (number | null) | Media;
   };
+  /**
+   * Contains only lowercase letters, numbers, and dashes.
+   */
   slug?: string | null;
+  /**
+   * Save it as draft to schedule.
+   */
   publishOn?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -393,6 +432,9 @@ export interface Blog {
  */
 export interface Tag {
   id: number;
+  /**
+   * Upload tag image
+   */
   tagImage: number | Media;
   title: string;
   description: string;
@@ -400,8 +442,14 @@ export interface Tag {
   meta?: {
     title?: string | null;
     description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
     image?: (number | null) | Media;
   };
+  /**
+   * Contains only lowercase letters, numbers, and dashes.
+   */
   slug?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -414,6 +462,9 @@ export interface Tag {
 export interface User {
   id: number;
   displayName?: string | null;
+  /**
+   * Contains only lowercase letters, numbers, and dashes.
+   */
   username: string;
   imageUrl?: (number | null) | Media;
   role: ('admin' | 'author' | 'user')[];
@@ -442,6 +493,9 @@ export interface User {
         id?: string | null;
       }[]
     | null;
+  /**
+   * This bio will be shown in the authors details page
+   */
   bio?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -460,15 +514,42 @@ export interface User {
  */
 export interface Quote {
   id: number;
+  /**
+   * The main heading for the quote section.
+   */
   heading?: string | null;
+  /**
+   * The actual quote text to be displayed, e.g., 'FrontEnd Developer, Acme Corp.'
+   */
   quote?: string | null;
+  /**
+   * The date associated with the quote (e.g., when it was said or published).
+   */
   date?: string | null;
+  /**
+   * The heading for the 'About' section related to the quote.
+   */
   aboutHeading?: string | null;
+  /**
+   * Additional details or context about the quote in the 'About' section.
+   */
   aboutQuote?: string | null;
+  /**
+   * The heading for the 'Details' section that provides more information about the quote.
+   */
   detailsHeading?: string | null;
+  /**
+   * An array of additional details associated with the quote.
+   */
   details?:
     | {
+        /**
+         * The title of a specific detail.
+         */
         title?: string | null;
+        /**
+         * The duration associated with this detail, if applicable.
+         */
         duration?: string | null;
         id?: string | null;
       }[]
@@ -477,6 +558,9 @@ export interface Quote {
   selectCostBreakdowns?: (number | CostsBreakdown)[] | null;
   termsHeading?: string | null;
   selectTerms?: (number | Term)[] | null;
+  /**
+   * Contains only lowercase letters, numbers, and dashes.
+   */
   slug?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -488,14 +572,29 @@ export interface Quote {
  */
 export interface CostsBreakdown {
   id: number;
+  /**
+   * The title or name of the cost item (e.g., 'Hosting Fee').
+   */
   title: string;
+  /**
+   * A brief description of the cost item (e.g., 'Monthly website hosting').
+   */
   description?: string | null;
+  /**
+   * The monetary cost associated with the item (e.g., 100 for $100).
+   */
   cost?: number | null;
+  /**
+   * Detailed information about the cost breakdown.
+   */
   content?:
     | {
         [k: string]: unknown;
       }[]
     | null;
+  /**
+   * Contains only lowercase letters, numbers, and dashes.
+   */
   slug?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -506,7 +605,13 @@ export interface CostsBreakdown {
  */
 export interface Term {
   id: number;
+  /**
+   * The title of the term (e.g., 'Privacy Policy').
+   */
   title: string;
+  /**
+   * A detailed explanation or description of the term.
+   */
   description?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -529,6 +634,8 @@ export interface FormSubmission {
   createdAt: string;
 }
 /**
+ * This is a collection of automatically created search results. These results are used by the global site search and will be updated automatically as documents in the CMS are created or updated.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "search".
  */
@@ -654,56 +761,12 @@ export interface PagesSelect<T extends boolean = true> {
   layout?:
     | T
     | {
-        Home?:
-          | T
-          | {
-              heading?: T;
-              subHeading?: T;
-              image?: T;
-              subscribeField?: T;
-              id?: T;
-              blockName?: T;
-            };
-        Details?:
-          | T
-          | {
-              collectionSlug?: T;
-              id?: T;
-              blockName?: T;
-            };
-        List?:
-          | T
-          | {
-              title?: T;
-              collectionSlug?: T;
-              id?: T;
-              blockName?: T;
-            };
-        Newsletter?:
-          | T
-          | {
-              heading?: T;
-              description?: T;
-              form?: T;
-              id?: T;
-              blockName?: T;
-            };
-        FormBlock?:
-          | T
-          | {
-              title?: T;
-              form?: T;
-              id?: T;
-              blockName?: T;
-            };
-        DisqusComments?:
-          | T
-          | {
-              title?: T;
-              shortName?: T;
-              id?: T;
-              blockName?: T;
-            };
+        Home?: T | HomeTypeSelect<T>;
+        Details?: T | DetailsTypeSelect<T>;
+        List?: T | ListTypeSelect<T>;
+        Newsletter?: T | NewsletterTypeSelect<T>;
+        FormBlock?: T | FormTypeSelect<T>;
+        DisqusComments?: T | DisqusCommentsTypeSelect<T>;
       };
   meta?:
     | T
@@ -730,6 +793,68 @@ export interface PagesSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HomeType_select".
+ */
+export interface HomeTypeSelect<T extends boolean = true> {
+  heading?: T;
+  subHeading?: T;
+  image?: T;
+  subscribeField?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DetailsType_select".
+ */
+export interface DetailsTypeSelect<T extends boolean = true> {
+  collectionSlug?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ListType_select".
+ */
+export interface ListTypeSelect<T extends boolean = true> {
+  title?: T;
+  collectionSlug?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NewsletterType_select".
+ */
+export interface NewsletterTypeSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  form?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FormType_select".
+ */
+export interface FormTypeSelect<T extends boolean = true> {
+  title?: T;
+  form?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DisqusCommentsType_select".
+ */
+export interface DisqusCommentsTypeSelect<T extends boolean = true> {
+  title?: T;
+  shortName?: T;
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1096,7 +1221,13 @@ export interface SiteSetting {
   general: {
     title: string;
     description: string;
+    /**
+     * We recommend a maximum size of 256 * 256 pixels
+     */
     faviconUrl: number | Media;
+    /**
+     * We recommend a maximum size of 1200 * 630 pixels
+     */
     ogImageUrl: number | Media;
     keywords?: string[] | null;
   };
@@ -1104,10 +1235,17 @@ export interface SiteSetting {
     logo: BrandLogo;
     menuLinks?:
       | {
+          /**
+           * Check to create group of links
+           */
           group?: boolean | null;
           menuLink?: {
             type?: ('reference' | 'custom') | null;
             newTab?: boolean | null;
+            /**
+             * Upload an svg or logo to be displayed with link
+             */
+            icon?: (number | null) | Media;
             label: string;
             page?: {
               relationTo: 'pages';
@@ -1122,6 +1260,10 @@ export interface SiteSetting {
               | {
                   type?: ('reference' | 'custom') | null;
                   newTab?: boolean | null;
+                  /**
+                   * Upload an svg or logo to be displayed with link
+                   */
+                  icon?: (number | null) | Media;
                   label: string;
                   page?: {
                     relationTo: 'pages';
@@ -1140,10 +1282,17 @@ export interface SiteSetting {
     logo: BrandLogo;
     footerLinks?:
       | {
+          /**
+           * Check to create group of links
+           */
           group?: boolean | null;
           menuLink?: {
             type?: ('reference' | 'custom') | null;
             newTab?: boolean | null;
+            /**
+             * Upload an svg or logo to be displayed with link
+             */
+            icon?: (number | null) | Media;
             label: string;
             page?: {
               relationTo: 'pages';
@@ -1158,6 +1307,10 @@ export interface SiteSetting {
               | {
                   type?: ('reference' | 'custom') | null;
                   newTab?: boolean | null;
+                  /**
+                   * Upload an svg or logo to be displayed with link
+                   */
+                  icon?: (number | null) | Media;
                   label: string;
                   page?: {
                     relationTo: 'pages';
@@ -1198,22 +1351,77 @@ export interface SiteSetting {
     copyright?: string | null;
   };
   redirectionLinks?: {
+    /**
+     * This redirects to a blog details page
+     */
     blogLink?: {
       relationTo: 'pages';
       value: number | Page;
     } | null;
+    /**
+     * This redirect to a product details page
+     */
+    productLink?: {
+      relationTo: 'pages';
+      value: number | Page;
+    } | null;
+    /**
+     * This redirects to a author details page
+     */
     authorLink?: {
       relationTo: 'pages';
       value: number | Page;
     } | null;
+    /**
+     * This redirects to a tag details page
+     */
     tagLink?: {
       relationTo: 'pages';
       value: number | Page;
     } | null;
   };
   monetization?: {
+    /**
+     * Add the publisher-id from Google AdSense Console
+     */
     adSenseId?: string | null;
+    /**
+     * Add the measurement id from Google Analytics dashboard
+     */
     measurementId?: string | null;
+  };
+  themeSettings: {
+    lightMode: {
+      primary: string;
+      background: string;
+      text: string;
+      foreground: string;
+      popover: string;
+      border: string;
+    };
+    darkMode: {
+      primary: string;
+      background: string;
+      text: string;
+      foreground: string;
+      popover: string;
+      border: string;
+    };
+    fonts: {
+      display: {
+        type: 'customFont' | 'googleFont';
+        customFont?: (number | null) | Media;
+        remoteFont?: string | null;
+        fontName?: string | null;
+      };
+      body: {
+        type: 'customFont' | 'googleFont';
+        customFont?: (number | null) | Media;
+        remoteFont?: string | null;
+        fontName?: string | null;
+      };
+    };
+    radius: 'none' | 'small' | 'medium' | 'large' | 'full';
   };
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -1224,8 +1432,17 @@ export interface SiteSetting {
  */
 export interface BrandLogo {
   imageUrl: number | Media;
+  /**
+   * Adjust to the height of the logo
+   */
   height?: number | null;
+  /**
+   * Adjust to the width of the logo
+   */
   width?: number | null;
+  /**
+   * This text appears below the footer image
+   */
   description?: string | null;
 }
 /**
@@ -1245,13 +1462,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   navbar?:
     | T
     | {
-        logo?:
-          | T
-          | {
-              imageUrl?: T;
-              height?: T;
-              width?: T;
-            };
+        logo?: T | BrandLogoSelect<T>;
         menuLinks?:
           | T
           | {
@@ -1261,6 +1472,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
                 | {
                     type?: T;
                     newTab?: T;
+                    icon?: T;
                     label?: T;
                     page?: T;
                     url?: T;
@@ -1275,6 +1487,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
                       | {
                           type?: T;
                           newTab?: T;
+                          icon?: T;
                           label?: T;
                           page?: T;
                           url?: T;
@@ -1287,14 +1500,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   footer?:
     | T
     | {
-        logo?:
-          | T
-          | {
-              imageUrl?: T;
-              height?: T;
-              width?: T;
-              description?: T;
-            };
+        logo?: T | BrandLogoSelect<T>;
         footerLinks?:
           | T
           | {
@@ -1304,6 +1510,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
                 | {
                     type?: T;
                     newTab?: T;
+                    icon?: T;
                     label?: T;
                     page?: T;
                     url?: T;
@@ -1318,6 +1525,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
                       | {
                           type?: T;
                           newTab?: T;
+                          icon?: T;
                           label?: T;
                           page?: T;
                           url?: T;
@@ -1339,6 +1547,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
     | T
     | {
         blogLink?: T;
+        productLink?: T;
         authorLink?: T;
         tagLink?: T;
       };
@@ -1348,9 +1557,64 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         adSenseId?: T;
         measurementId?: T;
       };
+  themeSettings?:
+    | T
+    | {
+        lightMode?:
+          | T
+          | {
+              primary?: T;
+              background?: T;
+              text?: T;
+              foreground?: T;
+              popover?: T;
+              border?: T;
+            };
+        darkMode?:
+          | T
+          | {
+              primary?: T;
+              background?: T;
+              text?: T;
+              foreground?: T;
+              popover?: T;
+              border?: T;
+            };
+        fonts?:
+          | T
+          | {
+              display?:
+                | T
+                | {
+                    type?: T;
+                    customFont?: T;
+                    remoteFont?: T;
+                    fontName?: T;
+                  };
+              body?:
+                | T
+                | {
+                    type?: T;
+                    customFont?: T;
+                    remoteFont?: T;
+                    fontName?: T;
+                  };
+            };
+        radius?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BrandLogo_select".
+ */
+export interface BrandLogoSelect<T extends boolean = true> {
+  imageUrl?: T;
+  height?: T;
+  width?: T;
+  description?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
