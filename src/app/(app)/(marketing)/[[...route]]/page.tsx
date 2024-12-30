@@ -5,6 +5,7 @@ import { unstable_cache } from 'next/cache'
 import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
 
+import QuoteTitle from '@/components/quote-title'
 import { blocksJSX } from '@/payload/blocks/blocks'
 import { serverClient } from '@/trpc/serverClient'
 import { ensurePath } from '@/utils/ensurePath'
@@ -93,7 +94,17 @@ const Page = async ({ params }: { params: Promise<{ route: string[] }> }) => {
 
         if (Block) {
           return (
-            <Block {...block} params={{ route: resolvedParams }} key={index} />
+            <>
+              {/* Left side */}
+              <QuoteTitle params={{ route: resolvedParams }} />
+
+              {/* Right side */}
+              <Block
+                {...block}
+                params={{ route: resolvedParams }}
+                key={index}
+              />
+            </>
           )
         }
 
