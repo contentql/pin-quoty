@@ -1,10 +1,19 @@
+import {
+  borderRadius,
+  fontType,
+  getCSSAndLinkGoogleFonts,
+  hexToHsl,
+  mimeTypes,
+} from '@contentql/core'
 import { env } from '@env'
 import configPromise from '@payload-config'
+import { SiteSetting } from '@payload-types'
 import type { Metadata, Viewport } from 'next'
 import { unstable_cache } from 'next/cache'
 import { Caveat, Inter } from 'next/font/google'
 import localFont from 'next/font/local'
 import { getPayload } from 'payload'
+import { Fragment } from 'react'
 import { Toaster } from 'sonner'
 
 import '@/app/(app)/globals.css'
@@ -111,6 +120,29 @@ export const viewport: Viewport = {
   initialScale: 1,
 }
 
+type ThemeStylesType = {
+  colors: SiteSetting['themeSettings']['lightMode']
+  fontName: {
+    display: string
+    body: string
+  }
+  radius: SiteSetting['themeSettings']['radius']
+}
+
+function generateThemeVariables({ colors, radius, fontName }: ThemeStylesType) {
+  return `
+      --background: ${hexToHsl(colors.background)};
+      --text: ${hexToHsl(colors.text)};
+      --foreground: ${hexToHsl(colors.foreground)};
+      --primary: ${hexToHsl(colors.primary)};
+      --border: ${hexToHsl(colors.border)};
+      --popover: ${hexToHsl(colors.popover)};
+      --font-display: ${fontName.display || ''}, sans-serif;
+      --font-body: ${fontName.body || ''}, sans-serif;
+      --border-radius: ${borderRadius[radius]}rem;
+  `
+}
+
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -118,23 +150,170 @@ export default async function RootLayout({
 }>) {
   const metadata = await getCachedSiteSettings()
   const generalSettings = metadata?.general
+  const themeSettings = metadata?.themeSettings
 
   const faviconUrl =
     typeof generalSettings?.faviconUrl === 'object'
       ? generalSettings?.faviconUrl?.url!
       : '/favicon.ico'
 
+  const { lightMode, darkMode, fonts, radius } = themeSettings
+  const displayFont =
+    fonts.display.type === 'customFont'
+      ? typeof fonts.display.customFont === 'object'
+        ? {
+            url: fonts.display.customFont?.url ?? '',
+            format:
+              mimeTypes[
+                ((fonts.display?.customFont?.url ?? '').split('.')?.[1] ??
+                  'otf') as keyof typeof mimeTypes
+              ],
+            fontName: 'Display',
+          }
+        : undefined
+      : {
+          googleFontURL: fonts.display.remoteFont ?? '',
+          fontName: fonts.display.fontName ?? '',
+        }
+
+  const bodyFont =
+    fonts.body.type === 'customFont'
+      ? typeof fonts.body.customFont === 'object'
+        ? {
+            url: fonts.body.customFont?.url ?? '',
+            format:
+              mimeTypes[
+                ((fonts.body?.customFont?.url ?? '').split('.')?.[1] ??
+                  'otf') as keyof typeof mimeTypes
+              ],
+            fontName: 'Body',
+          }
+        : undefined
+      : {
+          googleFontURL: fonts.body.remoteFont ?? '',
+          fontName: fonts.body.fontName ?? '',
+        }
+
+  const googleFontsList = [
+    displayFont?.googleFontURL ?? '',
+    bodyFont?.googleFontURL ?? '',
+  ].filter(url => Boolean(url))
+
+  const response = await getCSSAndLinkGoogleFonts({
+    fontUrlList: googleFontsList,
+  })
+
+  // All the color variables are generated using generateThemeStyles function for light & dark mode
+  const lightModeVariables = generateThemeVariables({
+    colors: lightMode,
+    fontName: {
+      display: displayFont?.fontName ?? '',
+      body: bodyFont?.fontName ?? '',
+    },
+    radius,
+  })
+
+  const darkModeVariables = generateThemeVariables({
+    colors: darkMode,
+    fontName: {
+      display: displayFont?.fontName ?? '',
+      body: bodyFont?.fontName ?? '',
+    },
+    radius,
+  })
+
   return (
     <html lang='en' className='dark' suppressHydrationWarning>
       <head>
         <link rel='icon' type='image/x-icon' href={faviconUrl} />
+        {/* Preloading the custom font given by the user */}
+        {displayFont?.url && (
+          <link
+            rel='preload'
+            href={`${env.PAYLOAD_URL}${displayFont.url}`}
+            as='font'
+            type={displayFont.format}
+            crossOrigin='anonymous'
+          />
+        )}
 
+        {bodyFont?.url && (
+          <link
+            rel='preload'
+            href={`${env.PAYLOAD_URL}${bodyFont.url}`}
+            as='font'
+            type={bodyFont.format}
+            crossOrigin='anonymous'
+          />
+        )}
+
+        {/* If user uploads custom font setting styles of that font */}
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `${
+              displayFont?.url
+                ? `@font-face {
+            font-family: 'Display';
+            src: url(${env.PAYLOAD_URL}${displayFont.url}) format(${fontType[displayFont.format]});
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+          }`
+                : ''
+            }\n
+            ${
+              bodyFont?.url
+                ? `@font-face {
+            font-family: 'Body';
+            src: url(${env.PAYLOAD_URL}${bodyFont.url}) format(${fontType[bodyFont.format]});
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+          }`
+                : ''
+            }`,
+          }}
+        />
+
+        {/* Link & Style tags are created from googleFonts response */}
+        {response.map(({ cssText, preloadLinks }, index) => (
+          <Fragment key={index}>
+            {preloadLinks.map(({ href, type }) =>
+              href ? (
+                <link
+                  rel='preload'
+                  as='font'
+                  crossOrigin='anonymous'
+                  href={href}
+                  type={type}
+                  key={href}
+                />
+              ) : null,
+            )}
+            <style dangerouslySetInnerHTML={{ __html: cssText }} />
+          </Fragment>
+        ))}
+
+        {/* following shadcn approach & generating lightMode & darkMode variables */}
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+            :root {
+            ${lightModeVariables}
+            }
+            \n
+              .dark {
+                ${darkModeVariables}
+              }
+            `,
+          }}
+        />
         <GoogleAdsense metadata={metadata} />
         <GoogleAnalytics metadata={metadata} />
       </head>
 
       <body
-        className={`${inter.variable} ${caveat.variable} ${orbiter.variable} font-inter bg-white tracking-tight text-slate-800 antialiased dark:bg-slate-950 dark:text-slate-200`}>
+        className={`${inter.variable} ${caveat.variable} ${orbiter.variable}  bg-white font-inter tracking-tight text-slate-800 antialiased dark:bg-slate-950 dark:text-slate-200`}>
         <Provider>{children}</Provider>
 
         {/* Sonnar toast library */}

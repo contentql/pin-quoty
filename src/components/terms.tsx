@@ -11,7 +11,7 @@ export default function Terms({
 }) {
   return (
     <section className='py-8'>
-      <h2 className='mb-5 text-lg font-semibold'>Project Terms</h2>
+      <h2 className='mb-5 text-lg font-semibold'>{termsHeading}</h2>
       <div className='space-y-3'>
         {terms?.map((term, index) => (
           <Accordion

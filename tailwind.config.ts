@@ -21,32 +21,11 @@ const config: Config = {
     },
     extend: {
       colors: {
-        primary: 'hsl(var(--primary))',
-        text: 'hsl(var(--text))',
-        secondary: 'hsl(var(--secondary))',
         background: 'hsl(var(--background))',
-        card: 'hsl(var(--card))',
-        input: 'hsl(var(--input))',
-        transparent: 'transparent',
-        info: {
-          DEFAULT: 'hsl(var(--info))',
-          foreground: 'hsl(var(--info-foreground))',
-        },
-        warning: {
-          DEFAULT: 'hsl(var(--warning))',
-          foreground: 'hsl(var(--warning-foreground))',
-        },
-        danger: {
-          DEFAULT: 'hsl(var(--danger))',
-          foreground: 'hsl(var(--danger-foreground))',
-        },
-        success: {
-          DEFAULT: 'hsl(var(--success))',
-          foreground: 'hsl(var(--success-foreground))',
-        },
-        popover: 'hsl(var(--popover))',
-        pink: 'hsl(var(--pink))',
-        indigo: 'hsl(var(--indigo))',
+        text: 'hsl(var(--text))',
+        foreground: 'hsl(var(--foreground))',
+        primary: 'hsl(var(--primary))',
+        border: 'hsl(var(--border))',
       },
       borderRadius: {
         DEFAULT: '0.5rem',

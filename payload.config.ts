@@ -168,6 +168,73 @@ export default cqlConfig({
                 hidden: true,
               },
             },
+            // {
+            //   name: 'themeSettings',
+            //   label: 'Theme Settings',
+            //   fields: [
+            //     {
+            //       type: 'row',
+            //       fields: [
+            //         {
+            //           type: 'group',
+            //           name: 'lightMode',
+            //           fields: [
+            //             {
+            //               type: 'text',
+            //               name: 'secondary',
+            //               admin: {
+            //                 components: {
+            //                   Field: '@contentql/core/client#ColorField',
+            //                 },
+            //               },
+            //               required: true,
+            //               defaultValue: '#10B981',
+            //             },
+            //             {
+            //               type: 'text',
+            //               name: 'secondaryText',
+            //               admin: {
+            //                 components: {
+            //                   Field: '@contentql/core/client#ColorField',
+            //                 },
+            //               },
+            //               required: true,
+            //               defaultValue: '#64748B',
+            //             },
+            //           ],
+            //         },
+            //         {
+            //           type: 'group',
+            //           name: 'darkMode',
+            //           fields: [
+            //             {
+            //               type: 'text',
+            //               name: 'secondary',
+            //               admin: {
+            //                 components: {
+            //                   Field: '@contentql/core/client#ColorField',
+            //                 },
+            //               },
+            //               required: true,
+            //               defaultValue: '#10B981',
+            //             },
+            //             {
+            //               type: 'text',
+            //               name: 'secondaryText',
+            //               admin: {
+            //                 components: {
+            //                   Field: '@contentql/core/client#ColorField',
+            //                 },
+            //               },
+            //               required: true,
+            //               defaultValue: '#94A3B8',
+            //             },
+            //           ],
+            //         },
+            //       ],
+            //     },
+            //   ],
+            // },
           ],
         },
       ],
