@@ -132,7 +132,7 @@ const Form = ({
 
       <Button
         type='submit'
-        className='mt-8'
+        className='btn mt-8 w-full bg-blue-500 text-white shadow shadow-black/5 hover:bg-blue-600'
         isLoading={isFormSubmissionPending}
         disabled={isFormSubmissionPending}>
         {submitButtonLabel ? submitButtonLabel : 'Submit'}

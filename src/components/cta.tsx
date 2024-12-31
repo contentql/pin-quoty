@@ -1,13 +1,19 @@
+'use client'
+
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 export default function Cta({ totalCost }: { totalCost: number | undefined }) {
+  const pathName = usePathname()
+  const segments = pathName.split('/')
+  const backPath = `${segments.slice(1, 3).join('/')}`
   return (
     <div className='fixed bottom-0 z-30 w-full bg-white !bg-opacity-80 backdrop-blur-sm dark:bg-slate-950 lg:w-1/2'>
       <div className='mx-auto w-full max-w-xl px-4 sm:px-6'>
         <div className='flex space-x-4 py-4 md:py-6'>
           <Link
             className='btn w-full border-slate-200 bg-white text-slate-900 shadow shadow-black/5 hover:border-slate-300 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-slate-700'
-            href='/contact'>
+            href={`/${backPath}/contact`}>
             Contact Me
           </Link>
           <Link
