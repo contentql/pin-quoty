@@ -86,7 +86,7 @@ export interface UserAuthOperations {
 export interface Page {
   id: number;
   title: string;
-  layout?: (HomeType | DetailsType | ListType | NewsletterType | FormType | DisqusCommentsType)[] | null;
+  layout?: (DetailsType | ListType | FormType | DisqusCommentsType)[] | null;
   meta?: {
     title?: string | null;
     description?: string | null;
@@ -119,64 +119,6 @@ export interface Page {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "HomeType".
- */
-export interface HomeType {
-  heading: string;
-  subHeading?: string | null;
-  image: number | Media;
-  subscribeField: boolean;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'Home';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
- */
-export interface Media {
-  id: number;
-  alt?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
-  sizes?: {
-    thumbnail?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    blogImageSize2?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    blogImageSize3?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-  };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "DetailsType".
  */
 export interface DetailsType {
@@ -201,15 +143,17 @@ export interface ListType {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "NewsletterType".
+ * via the `definition` "FormType".
  */
-export interface NewsletterType {
-  heading: string;
-  description: string;
-  form?: (number | null) | Form;
+export interface FormType {
+  title: string;
+  form: {
+    relationTo: 'forms';
+    value: number | Form;
+  };
   id?: string | null;
   blockName?: string | null;
-  blockType: 'Newsletter';
+  blockType: 'FormBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -347,20 +291,6 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FormType".
- */
-export interface FormType {
-  title: string;
-  form: {
-    relationTo: 'forms';
-    value: number | Form;
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'FormBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "DisqusCommentsType".
  */
 export interface DisqusCommentsType {
@@ -372,6 +302,51 @@ export interface DisqusCommentsType {
   id?: string | null;
   blockName?: string | null;
   blockType: 'DisqusComments';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: number;
+  alt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+  sizes?: {
+    thumbnail?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    blogImageSize2?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    blogImageSize3?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -761,10 +736,8 @@ export interface PagesSelect<T extends boolean = true> {
   layout?:
     | T
     | {
-        Home?: T | HomeTypeSelect<T>;
         Details?: T | DetailsTypeSelect<T>;
         List?: T | ListTypeSelect<T>;
-        Newsletter?: T | NewsletterTypeSelect<T>;
         FormBlock?: T | FormTypeSelect<T>;
         DisqusComments?: T | DisqusCommentsTypeSelect<T>;
       };
@@ -796,18 +769,6 @@ export interface PagesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "HomeType_select".
- */
-export interface HomeTypeSelect<T extends boolean = true> {
-  heading?: T;
-  subHeading?: T;
-  image?: T;
-  subscribeField?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "DetailsType_select".
  */
 export interface DetailsTypeSelect<T extends boolean = true> {
@@ -822,17 +783,6 @@ export interface DetailsTypeSelect<T extends boolean = true> {
 export interface ListTypeSelect<T extends boolean = true> {
   title?: T;
   collectionSlug?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "NewsletterType_select".
- */
-export interface NewsletterTypeSelect<T extends boolean = true> {
-  heading?: T;
-  description?: T;
-  form?: T;
   id?: T;
   blockName?: T;
 }
