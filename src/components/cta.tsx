@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-export default function Cta({ totalCost }: { totalCost: number | undefined }) {
+export default function Cta({ totalPrice }: { totalPrice: string }) {
   const pathName = usePathname()
   const segments = pathName.split('/')
   const backPath = `${segments.slice(1, 3).join('/')}`
@@ -19,7 +19,7 @@ export default function Cta({ totalCost }: { totalCost: number | undefined }) {
           <Link
             className='btn w-full animate-shine bg-blue-500 bg-[linear-gradient(100deg,theme(colors.blue.500),45%,theme(colors.blue.400),55%,theme(colors.blue.500))] bg-[size:200%_100%] text-white shadow shadow-black/5 hover:bg-blue-600 hover:bg-[image:none]'
             href='/pay'>
-            Pay - ${totalCost}
+            Pay - {totalPrice}
           </Link>
         </div>
       </div>
