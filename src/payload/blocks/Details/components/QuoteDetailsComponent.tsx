@@ -1,4 +1,4 @@
-import { Quote } from '@payload-types'
+import { CostsBreakdownSelect, Quote } from '@payload-types'
 
 import Brief from '@/components/brief'
 import CostsList from '@/components/costs-list'
@@ -13,6 +13,14 @@ export default function QuoteDetailsComponent({
   quote: Quote
   slug: string
 }) {
+  const totalCost = quote?.selectCostBreakdowns?.reduce<number>(
+    (total, costBreakdown) => {
+      const breakdown = costBreakdown as CostsBreakdownSelect
+      const cost = typeof breakdown?.cost === 'number' ? breakdown.cost : 0
+      return total + cost
+    },
+    0,
+  )
   return (
     <>
       <div className='mx-auto w-full max-w-xl grow px-4 py-12 sm:px-6 lg:pb-20 lg:pt-24'>
@@ -23,6 +31,7 @@ export default function QuoteDetailsComponent({
             quoteDetailsHeading={quote?.detailsHeading}
           />
           <CostsList
+            totalCost={totalCost}
             slug={slug}
             costsBreakdowns={quote?.selectCostBreakdowns}
             costsBreakdownHeading={quote?.costsBreakdownHeading}
@@ -33,7 +42,7 @@ export default function QuoteDetailsComponent({
           />
         </article>
       </div>
-      <Cta />
+      <Cta totalCost={totalCost} />
     </>
   )
 }

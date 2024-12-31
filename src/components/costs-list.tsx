@@ -2,20 +2,16 @@ import { CostsBreakdown, CostsBreakdownSelect } from '@payload-types'
 import Link from 'next/link'
 
 export default function CostsList({
+  totalCost,
   slug,
   costsBreakdowns,
   costsBreakdownHeading,
 }: {
+  totalCost: number | undefined
   slug: string
   costsBreakdowns: (number | CostsBreakdown)[] | null | undefined
   costsBreakdownHeading: string | null | undefined
 }) {
-  const totalCost = costsBreakdowns?.reduce<number>((total, costBreakdown) => {
-    const breakdown = costBreakdown as CostsBreakdownSelect
-    const cost = typeof breakdown?.cost === 'number' ? breakdown.cost : 0
-    return total + cost
-  }, 0)
-
   return (
     <section className='py-8'>
       <h2 className='mb-5 text-lg font-semibold'>{costsBreakdownHeading}</h2>
