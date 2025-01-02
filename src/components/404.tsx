@@ -4,26 +4,28 @@ import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
+import { trpc } from '@/trpc/client'
+
 import Button from './common/Button'
 
 const PageNotFound: React.FC = () => {
   const pathname = usePathname()
 
-  // const { mutate: runSeedMutation, isPending } = trpc.seed.runSeed.useMutation({
-  //   onSuccess: () => {
-  //     window.location.reload()
-  //   },
-  // })
+  const { mutate: runSeedMutation, isPending } = trpc.seed.runSeed.useMutation({
+    onSuccess: () => {
+      window.location.reload()
+    },
+  })
 
   if (pathname === '/') {
     return (
       <section className='flex min-h-screen flex-col items-center justify-center'>
         <h1 className='text-4xl font-semibold'>Welcome to Quote Theme</h1>
 
-        {/* <p className='my-4 p-2 text-center'>
+        <p className='my-4 p-2 text-center'>
           {isPending
             ? '⏰please hold-on this process might take some time'
-            : 'Click below👇 to instantly load demo content-blogs, authors, tags, and pages'}
+            : 'Click below👇 to instantly load demo quotes,costsBreakdown and pages'}
         </p>
 
         <Button
@@ -33,7 +35,7 @@ const PageNotFound: React.FC = () => {
             runSeedMutation()
           }}>
           Load Demo Data
-        </Button> */}
+        </Button>
       </section>
     )
   }
