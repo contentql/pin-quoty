@@ -14,7 +14,7 @@ const seed = async (spinner: Ora): Promise<Page> => {
       collection: 'pages',
     })
 
-    const pageId = pages?.find(page => page?.slug === 'costsBreakdown')?.id
+    const pageId = pages?.find(page => page?.slug === 'costs-breakdown')?.id
     const result = await payload.create({
       collection: 'pages',
       data: { ...costsBreakdownDetailsPageData, parent: pageId },

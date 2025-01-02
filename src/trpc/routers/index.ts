@@ -10,6 +10,7 @@ import { costsBreakdownRouter } from './costs-break-down'
 import { formRouter } from './form'
 import { quoteRouter } from './quote'
 import { searchRouter } from './search'
+import { seedRouter } from './seed'
 import { userRouter } from './user/user-route'
 
 export const appRouter = router({
@@ -25,6 +26,7 @@ export const appRouter = router({
   form: formRouter,
   quote: quoteRouter,
   costsBreakdown: costsBreakdownRouter,
+  seed: seedRouter,
 })
 
 export type AppRouter = typeof appRouter
