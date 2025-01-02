@@ -6,7 +6,9 @@ import { siteSettingsRouter } from '@/trpc/routers/site-settings'
 import { tagRouter } from '@/trpc/routers/tag'
 
 import { authRouter } from './auth'
+import { costsBreakdownRouter } from './costs-break-down'
 import { formRouter } from './form'
+import { quoteRouter } from './quote'
 import { searchRouter } from './search'
 import { userRouter } from './user/user-route'
 
@@ -21,6 +23,8 @@ export const appRouter = router({
   // this is used for global search
   search: searchRouter,
   form: formRouter,
+  quote: quoteRouter,
+  costsBreakdown: costsBreakdownRouter,
 })
 
 export type AppRouter = typeof appRouter

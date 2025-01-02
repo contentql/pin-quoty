@@ -159,7 +159,7 @@ export async function generateMetadata({
 
       const doc = docs?.at(0)
 
-      metadata = doc?.meta || {}
+      // metadata = doc?.meta || {}
     }
 
     if (metadata && Object.keys(metadata).length) {
@@ -222,6 +222,8 @@ const staticGenerationMapping = {
   blogs: serverClient.blog.getAllBlogs(),
   tags: serverClient.tag.getAllTags(),
   users: serverClient.author.getAllAuthors(),
+  quotes: serverClient.quote.getAllQuotes(),
+  costsBreakdown: serverClient.costsBreakdown.getAllCostsBreakdown(),
 } as const
 
 export async function generateStaticParams(): Promise<StaticRoute[]> {
