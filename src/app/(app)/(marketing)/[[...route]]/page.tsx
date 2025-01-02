@@ -226,53 +226,55 @@ const staticGenerationMapping = {
   costsBreakdown: serverClient.costsBreakdown.getAllCostsBreakdown(),
 } as const
 
-export async function generateStaticParams(): Promise<StaticRoute[]> {
-  const allPagesData = await serverClient.page.getAllPages()
-  const staticParams: StaticRoute[] = []
+// export async function generateStaticParams(): Promise<StaticRoute[]> {
+//   const allPagesData = await serverClient.page.getAllPages()
+//   const staticParams: StaticRoute[] = []
 
-  for (const page of allPagesData) {
-    if (!page) {
-      continue // Skip invalid pages
-    }
+//   for (const page of allPagesData) {
+//     if (!page) {
+//       continue // Skip invalid pages
+//     }
 
-    // If the route is dynamic (contains `[`)
-    if (page?.path?.includes('[') && page.layout) {
-      const blockData = page.layout.find(block => block.blockType === 'Details')
+//     // If the route is dynamic (contains `[`)
+//     if (page?.path?.includes('[') && page.layout) {
+//       const blockData = page.layout.find(block => block.blockType === 'Details')
 
-      // If it has a Details block with a valid collectionSlug
-      if (blockData?.blockType === 'Details' && blockData.collectionSlug) {
-        const slug = blockData.collectionSlug
+//       // If it has a Details block with a valid collectionSlug
+//       if (blockData?.blockType === 'Details' && blockData.collectionSlug) {
+//         const slug = blockData.collectionSlug
 
-        // Fetch all slugs for the given collection (e.g., blogs, tags, users)
-        const data = await staticGenerationMapping[slug]
+//         // Fetch all slugs for the given collection (e.g., blogs, tags, users)
+//         const data = await staticGenerationMapping[slug]
 
-        if (data && Array.isArray(data)) {
-          let path = ''
-          for (const item of data) {
-            if ('username' in item) {
-              path = item.username
-            } else if ('slug' in item) {
-              path = `${item.slug}`
-            }
+//         console.log({ data, slug })
 
-            // Dynamically replace `[parameter]` with actual slug
-            const dynamicPath = page.path.replace(/\[(.*?)\]/, path)
+//         if (data && Array.isArray(data)) {
+//           let path = ''
+//           for (const item of data) {
+//             if ('username' in item) {
+//               path = item.username
+//             } else if ('slug' in item) {
+//               path = `${item.slug}`
+//             }
+//             console.log({ path, pagePath: page.path })
+//             // Dynamically replace `[parameter]` with actual slug
+//             const dynamicPath = page.path.replace(/\[(.*?)\]/, path)
+//             console.log({ dynamicPath })
+//             staticParams.push({
+//               route: dynamicPath.split('/').filter(Boolean),
+//             })
+//           }
+//         }
+//         continue
+//       }
+//     }
 
-            staticParams.push({
-              route: dynamicPath.split('/').filter(Boolean),
-            })
-          }
-        }
-        continue
-      }
-    }
+//     // Statics (non-dynamic paths)
+//     const nonDynamicPath = page?.path?.split('/').filter(Boolean)
+//     if (nonDynamicPath) {
+//       staticParams.push({ route: [...nonDynamicPath] })
+//     }
+//   }
 
-    // Statics (non-dynamic paths)
-    const nonDynamicPath = page?.path?.split('/').filter(Boolean)[0]
-    if (nonDynamicPath) {
-      staticParams.push({ route: [nonDynamicPath] })
-    }
-  }
-
-  return staticParams
-}
+//   return staticParams
+// }
