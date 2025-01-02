@@ -14,6 +14,7 @@ export const tagRouter = router({
         collection: 'tags',
         depth: 5,
         draft: false,
+        limit: 1000,
       })
 
       return docs

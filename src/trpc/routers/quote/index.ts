@@ -13,6 +13,7 @@ export const quoteRouter = router({
         collection: 'quotes',
         depth: 5,
         draft: false,
+        limit: 1000,
       })
 
       return docs

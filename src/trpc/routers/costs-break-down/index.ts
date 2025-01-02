@@ -13,6 +13,7 @@ export const costsBreakdownRouter = router({
         collection: 'costsBreakdown',
         depth: 5,
         draft: false,
+        limit: 1000,
       })
 
       return docs

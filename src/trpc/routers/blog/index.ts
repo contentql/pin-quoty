@@ -16,6 +16,7 @@ export const blogRouter = router({
         collection: 'blogs',
         depth: 5,
         draft: false,
+        limit: 1000,
       })
 
       return docs

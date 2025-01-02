@@ -17,6 +17,7 @@ export const authorRouter = router({
             equals: 'author',
           },
         },
+        limit: 1000,
       })
 
       return authors
