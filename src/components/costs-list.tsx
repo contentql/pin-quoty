@@ -71,7 +71,7 @@ export default function CostsList({
           <tfoot>
             <tr>
               <th scope='row' className='px-4 py-5 text-left font-normal'>
-                <p className='italic text-slate-500'>TOT in USD dollar</p>
+                <p className='italic text-slate-500'>TOTAL COST</p>
               </th>
               <td className='w-[1%] px-4 py-5 text-right text-base font-semibold text-emerald-500 underline'>
                 {totalPrice}
