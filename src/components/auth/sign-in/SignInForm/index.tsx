@@ -44,7 +44,7 @@ const SignInForm: React.FC = () => {
       if (isAdmin) {
         router.push('/admin')
       } else {
-        router.push('/profile')
+        router.push('/')
       }
     },
   })
@@ -73,7 +73,7 @@ const SignInForm: React.FC = () => {
             </Alert>
           ) : null}
           <h1 className=' mb-1 text-3xl font-semibold'>Sign In</h1>
-          <p className='mb-6 text-secondary'>
+          <p className='text-secondary mb-6'>
             Join our Community with all time access and free{' '}
           </p>
 
@@ -94,7 +94,7 @@ const SignInForm: React.FC = () => {
                 />
 
                 {errors?.email && (
-                  <p className='text-sm text-danger'>{errors.email.message}</p>
+                  <p className='text-danger text-sm'>{errors.email.message}</p>
                 )}
               </LabelInputContainer>
             </div>
@@ -113,14 +113,14 @@ const SignInForm: React.FC = () => {
                 />
 
                 {errors?.password && (
-                  <p className='text-sm text-danger'>
+                  <p className='text-danger text-sm'>
                     {errors.password.message}
                   </p>
                 )}
               </LabelInputContainer>
             </div>
 
-            <p className='mb-2 text-sm text-secondary'>
+            <p className='text-secondary mb-2 text-sm'>
               Forgot your password?{' '}
               <Link
                 className='text-primary hover:underline'
@@ -139,7 +139,7 @@ const SignInForm: React.FC = () => {
               </Button>
             </div>
           </form>
-          <div className='mt-8 text-center text-sm text-secondary'>
+          <div className='text-secondary mt-8 text-center text-sm'>
             <p>
               Don&apos;t have an account?{' '}
               <Link href='/sign-up' className='text-primary hover:underline'>

@@ -36,9 +36,8 @@ export default async function MarketingLayout({
 
         <div className='flex grow flex-col lg:flex-row'>
           {/* Right side */}
-          <main className='flex w-full flex-col max-lg:grow lg:ml-auto lg:w-1/2'>
-            {children}
-          </main>
+
+          {children}
         </div>
       </div>
     </Theme>

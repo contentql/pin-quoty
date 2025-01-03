@@ -4,6 +4,7 @@ import type { Metadata } from 'next'
 import { unstable_cache } from 'next/cache'
 import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
+import React from 'react'
 
 import QuoteTitle from '@/components/quote-title'
 import { blocksJSX } from '@/payload/blocks/blocks'
@@ -15,7 +16,7 @@ import { matchNextJsPath } from '@/utils/matchNextJsPath'
 type StaticRoute = { route: string | string[] | null }
 type DynamicPageDataType = { index: number; path: string; slugs: string[] }[]
 
-export const dynamic = 'force-static'
+// export const dynamic = 'force-static'
 // revalidates every 10mins
 export const revalidate = 600
 // allows dynamic params static generation
@@ -90,30 +91,45 @@ const Page = async ({ params }: { params: Promise<{ route: string[] }> }) => {
   const layoutData = pageData.layout ?? []
 
   return (
-    <div>
+    <React.Fragment>
       {layoutData?.map((block, index) => {
         // Casting to 'React.FC<any>' to bypass TypeScript error related to 'Params' type incompatibility.
         const Block = blocksJSX[block.blockType] as React.FC<any>
 
         if (Block) {
-          return (
-            <>
-              {/* Left side */}
-              <QuoteTitle params={{ route: resolvedParams }} />
+          if (block.blockType === 'Details') {
+            return (
+              <main
+                key={index}
+                className='flex w-full flex-col max-lg:grow lg:ml-auto lg:w-1/2'>
+                {/* Left side */}
 
-              {/* Right side */}
+                <QuoteTitle params={{ route: resolvedParams }} />
+
+                {/* Right side */}
+                <Block
+                  {...block}
+                  params={{ route: resolvedParams }}
+                  key={index}
+                />
+              </main>
+            )
+          }
+
+          return (
+            <main key={index} className='flex w-full justify-center'>
               <Block
                 {...block}
                 params={{ route: resolvedParams }}
                 key={index}
               />
-            </>
+            </main>
           )
         }
 
         return <h3 key={block.id}>Block does not exist </h3>
       })}
-    </div>
+    </React.Fragment>
   )
 }
 
