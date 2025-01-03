@@ -86,7 +86,7 @@ export interface UserAuthOperations {
 export interface Page {
   id: number;
   title: string;
-  layout?: (DetailsType | ListType | FormType | DisqusCommentsType)[] | null;
+  layout?: (DetailsType | ListType | FormType | HomeType | DisqusCommentsType)[] | null;
   meta?: {
     title?: string | null;
     description?: string | null;
@@ -288,6 +288,16 @@ export interface Form {
     | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HomeType".
+ */
+export interface HomeType {
+  heading?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'Home';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -739,6 +749,7 @@ export interface PagesSelect<T extends boolean = true> {
         Details?: T | DetailsTypeSelect<T>;
         List?: T | ListTypeSelect<T>;
         FormBlock?: T | FormTypeSelect<T>;
+        Home?: T | HomeTypeSelect<T>;
         DisqusComments?: T | DisqusCommentsTypeSelect<T>;
       };
   meta?:
@@ -793,6 +804,15 @@ export interface ListTypeSelect<T extends boolean = true> {
 export interface FormTypeSelect<T extends boolean = true> {
   title?: T;
   form?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HomeType_select".
+ */
+export interface HomeTypeSelect<T extends boolean = true> {
+  heading?: T;
   id?: T;
   blockName?: T;
 }
