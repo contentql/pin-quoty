@@ -151,6 +151,15 @@ export const Quotes: CustomCollectionConfig = {
         beforeValidate: [formatSlug('quote')],
       },
     },
+    {
+      name: 'email',
+      label: 'Email',
+      type: 'text',
+      required: true,
+      admin: {
+        position: 'sidebar',
+      },
+    },
   ],
   hooks: {
     afterChange: [revalidateQuotes],
