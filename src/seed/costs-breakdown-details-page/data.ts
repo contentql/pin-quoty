@@ -19,8 +19,11 @@ export const costsBreakdownDetailsPageData: CostsBreakdownDetailsPageDataType =
 
     isHome: false,
     isDynamic: true,
-
-    parent: 0,
+    slugMode: 'generate',
+    slug: 'costs-breakdown-details',
+    pathMode: 'custom',
+    path: '/quote/[quote-details]/costs-breakdown/[costs-breakdown-details]',
+    parent: null,
 
     _status: 'published',
   }

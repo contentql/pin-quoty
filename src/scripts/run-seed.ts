@@ -16,11 +16,9 @@ import ora, { Ora } from 'ora'
 import { seedContactPage } from '@/seed/contact-page'
 import { seedCostsBreakdown } from '@/seed/costs-breakdown'
 import { seedCostsBreakdownDetailsPageData } from '@/seed/costs-breakdown-details-page'
-import { seedCostsBreakdownPage } from '@/seed/costs-breakdown-page'
 import { seedForms } from '@/seed/forms'
-import { seedQuoteDetailsPage } from '@/seed/quote-page-details-page'
+import { seedQuoteDetailsPage } from '@/seed/quote-details-page'
 import { seedQuotes } from '@/seed/quotes'
-import { seedQuotesPage } from '@/seed/quotes-page'
 import { seedSiteSettings } from '@/seed/site-settings'
 import { seedTerms } from '@/seed/terms'
 
@@ -79,9 +77,7 @@ const executeSeeding = async (): Promise<void> => {
     await seedTerms(spinner)
     await seedForms(spinner) // Assume this returns seeded forms
     await seedQuotes(spinner)
-    await seedQuotesPage(spinner)
     await seedQuoteDetailsPage(spinner)
-    await seedCostsBreakdownPage(spinner)
     await seedCostsBreakdownDetailsPageData(spinner)
     await seedContactPage(spinner)
     await seedSiteSettings(spinner)

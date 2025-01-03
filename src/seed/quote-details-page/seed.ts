@@ -3,22 +3,22 @@ import { Page } from '@payload-types'
 import { Ora } from 'ora'
 import { getPayload } from 'payload'
 
-import { quotesPageData } from './data'
+import { quoteDetailsPageData } from './data'
 
 const payload = await getPayload({ config: configPromise })
 
 const seed = async (spinner: Ora): Promise<Page> => {
   try {
-    spinner.start(`Started created quotes-page...`)
+    spinner.start(`Started created quote-details-page...`)
     const result = await payload.create({
       collection: 'pages',
-      data: quotesPageData,
+      data: { ...quoteDetailsPageData },
     })
 
-    spinner.succeed(`Started created quotes-page...`)
+    spinner.succeed(`Successfully created quote-details-page`)
     return result
   } catch (error) {
-    spinner.succeed(`Failed to create quotes-page`)
+    spinner.succeed(`Failed to create quote-details-page`)
     throw error
   }
 }

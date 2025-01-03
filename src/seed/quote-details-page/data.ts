@@ -18,8 +18,11 @@ export const quoteDetailsPageData: QuoteDetailsPageDataType = {
 
   isHome: false,
   isDynamic: true,
-
-  parent: 0,
+  slugMode: 'generate',
+  slug: 'quote-details',
+  pathMode: 'custom',
+  path: '/quote/[quote-details]',
+  parent: null,
 
   _status: 'published',
 }
