@@ -9,9 +9,12 @@ import QuoteTitle from '@/components/quote-title'
 import { blocksJSX } from '@/payload/blocks/blocks'
 import { serverClient } from '@/trpc/serverClient'
 import { ensurePath } from '@/utils/ensurePath'
+import { generateCombinations } from '@/utils/generateCombinations'
 import { matchNextJsPath } from '@/utils/matchNextJsPath'
 
 type StaticRoute = { route: string | string[] | null }
+type DynamicPageDataType = { index: number; path: string; slugs: string[] }[]
+
 export const dynamic = 'force-static'
 // revalidates every 10mins
 export const revalidate = 600
@@ -225,42 +228,6 @@ const staticGenerationMapping = {
   quotes: serverClient.quote.getAllQuotes(),
   costsBreakdown: serverClient.costsBreakdown.getAllCostsBreakdown(),
 } as const
-
-type DynamicPageDataType = { index: number; path: string; slugs: string[] }[]
-
-// Function to generate all combinations
-const generateCombinations = ({
-  replaceList,
-  combinationsList,
-}: {
-  replaceList: string[]
-  combinationsList: DynamicPageDataType
-}) => {
-  // Start with a single combination which is the replaceList itself
-  let result = [replaceList]
-
-  // Iterate through each combination rule
-  combinationsList.forEach(({ index, slugs }) => {
-    const newResult: string[][] = []
-
-    // Expand existing combinations by replacing the specified index
-    result.forEach(currentCombination => {
-      slugs.forEach(replacement => {
-        // Create a copy of the current combination
-        const newCombination = [...currentCombination]
-        // Replace the value at the specified index with the new combination value
-        newCombination[index] = replacement
-        // Add the modified combination to the result
-        newResult.push(newCombination)
-      })
-    })
-
-    // Update the result with the newly generated combinations
-    result = newResult
-  })
-
-  return result
-}
 
 // This function generates staticParams for [[...route]]/page.tsx
 // return [{route: ['blog']}, {route: ['blog', 'dynamic-access-in-javascript']}]
