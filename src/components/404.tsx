@@ -20,7 +20,9 @@ const PageNotFound: React.FC = () => {
   if (pathname === '/') {
     return (
       <section className='flex min-h-screen flex-col items-center justify-center'>
-        <h1 className='text-4xl font-semibold'>Welcome to Quote Theme</h1>
+        <h1 className='text-center text-4xl font-semibold'>
+          Welcome to Quote Theme
+        </h1>
 
         <p className='my-4 p-2 text-center'>
           {isPending
@@ -29,6 +31,7 @@ const PageNotFound: React.FC = () => {
         </p>
 
         <Button
+          className='btn animate-shine bg-blue-500 bg-[linear-gradient(100deg,theme(colors.blue.500),45%,theme(colors.blue.400),55%,theme(colors.blue.500))] bg-[size:200%_100%] text-white shadow shadow-black/5 hover:bg-blue-600 hover:bg-[image:none]'
           isLoading={isPending}
           disabled={isPending}
           onClick={() => {
