@@ -1,7 +1,6 @@
 import { Params } from '../types'
 import configPromise from '@payload-config'
 import { HomeType } from '@payload-types'
-import { Copy } from 'lucide-react'
 import { headers } from 'next/headers'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
@@ -51,14 +50,13 @@ const Home: React.FC<HomeProps> = async ({ params, ...block }) => {
                     {quoteData?.aboutQuote}
                   </p>
                 </th>
-                <td>
-                  {/* Copy icon */}
+                {/* <td>
                   <button
                     className='flex items-center justify-center px-4 py-5 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300'
                     aria-label='Copy quote'>
                     <Copy size={20} />
                   </button>
-                </td>
+                </td> */}
               </tr>
             ))}
           </tbody>
