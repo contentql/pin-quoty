@@ -31,7 +31,7 @@ export const quotesData: QuoteDataType[] = [
     costsBreakdownHeading: 'Costs Breakdown',
 
     termsHeading: 'Terms',
-
+    email: 'charanm927@gmail.com',
     _status: 'published',
   },
 ]
