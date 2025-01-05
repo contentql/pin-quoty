@@ -17,6 +17,7 @@ import { seedContactPage } from '@/seed/contact-page'
 import { seedCostsBreakdown } from '@/seed/costs-breakdown'
 import { seedCostsBreakdownDetailsPageData } from '@/seed/costs-breakdown-details-page'
 import { seedForms } from '@/seed/forms'
+import { seedHomePage } from '@/seed/home-page'
 import { seedQuoteDetailsPage } from '@/seed/quote-details-page'
 import { seedQuotes } from '@/seed/quotes'
 import { seedSiteSettings } from '@/seed/site-settings'
@@ -77,6 +78,7 @@ const executeSeeding = async (): Promise<void> => {
     await seedTerms(spinner)
     await seedForms(spinner) // Assume this returns seeded forms
     await seedQuotes(spinner)
+    await seedHomePage(spinner)
     await seedQuoteDetailsPage(spinner)
     await seedCostsBreakdownDetailsPageData(spinner)
     await seedContactPage(spinner)
