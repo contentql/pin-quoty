@@ -26,7 +26,7 @@ export default async function QuoteTitle({ params }: QuoteTitleProps) {
   const quoteData = quote?.at(0)
   const date = format(new Date(quoteData?.date!), 'dd-MMMM-yyyy')
   return (
-    <div className='no-scrollbar relative w-full bg-slate-900 lg:fixed lg:inset-0 lg:w-1/2 lg:overflow-y-auto lg:rounded-r-[3rem]'>
+    <div className='no-scrollbar relative w-full bg-background lg:fixed lg:inset-0 lg:w-1/2 lg:overflow-y-auto lg:rounded-r-[3rem]'>
       {/* Background Illustration */}
       <div
         className='pointer-events-none absolute left-1/2 top-0 -translate-x-1/2 -translate-y-64 blur-3xl'
@@ -43,13 +43,13 @@ export default async function QuoteTitle({ params }: QuoteTitleProps) {
       <div className='mx-auto flex min-h-full w-full max-w-xl flex-col justify-start px-4 pb-20 pt-36 sm:px-6 lg:py-20'>
         <div className='flex grow flex-col justify-center'>
           <div className='space-y-3'>
-            <div className='font-caveat text-3xl text-blue-500'>
+            <div className='font-caveat text-3xl text-primary'>
               {quoteData?.heading}
             </div>
-            <h1 className='h1 font-orbiter font-bold text-white'>
+            <h1 className='h1 font-orbiter font-bold text-text'>
               {quoteData?.quote}
             </h1>
-            <time className="block font-caveat text-xl text-slate-400 before:content-['—_']">
+            <time className="block font-caveat text-xl text-border before:content-['—_']">
               {date}
             </time>
           </div>

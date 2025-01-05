@@ -29,7 +29,7 @@ export default function Header({ metadata }: { metadata: SiteSetting }) {
                 height='32'
                 alt={(metadata?.navbar?.logo?.imageUrl as Media)?.alt || 'Logo'}
               />
-              <span className='font-caveat text-xl text-slate-200'>
+              <span className='font-caveat text-xl text-text'>
                 {metadata?.general?.title}
               </span>
             </Link>

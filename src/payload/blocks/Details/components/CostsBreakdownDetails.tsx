@@ -25,9 +25,9 @@ export default function CostsBreakdownDetails({
       <BackButton path={backPath} />
 
       <article>
-        <h2 className='h2 font-orbiter mb-4'>{costsBreakdown?.title}</h2>
+        <h2 className='h2 mb-4 font-orbiter'>{costsBreakdown?.title}</h2>
         <div
-          className='prose space-y-4 text-slate-500 dark:text-slate-400'
+          className='prose space-y-4 text-border'
           dangerouslySetInnerHTML={{ __html: sanitizeHtml }}
         />
       </article>

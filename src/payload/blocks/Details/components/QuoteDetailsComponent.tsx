@@ -44,7 +44,7 @@ export default async function QuoteDetailsComponent({
   return (
     <>
       <div className='mx-auto w-full max-w-xl grow px-4 py-12 sm:px-6 lg:pb-20 lg:pt-24'>
-        <article className='-mt-8 mb-4 divide-y divide-slate-100 dark:divide-slate-800'>
+        <article className='-mt-8 mb-4 divide-y divide-foreground'>
           <Brief aboutHeading={quote?.aboutHeading}>{quote?.aboutQuote}</Brief>
           <QuoteDetails
             quoteDetails={quote?.details}

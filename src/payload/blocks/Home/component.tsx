@@ -33,9 +33,7 @@ const Home: React.FC<HomeProps> = async ({ params, ...block }) => {
         <table className='w-full table-auto text-sm'>
           <tbody>
             {quotesData?.map((quoteData, index) => (
-              <tr
-                key={index}
-                className='group from-slate-100 to-slate-50 odd:bg-gradient-to-tr dark:from-slate-800/80 dark:to-slate-900'>
+              <tr key={index} className='group  odd:bg-foreground'>
                 <th
                   scope='row'
                   className='relative px-4 py-5 text-left font-normal first:rounded-l-lg last:rounded-r-lg'>
@@ -46,7 +44,7 @@ const Home: React.FC<HomeProps> = async ({ params, ...block }) => {
                       {quoteData?.quote}
                     </Link>
                   </div>
-                  <p className='line-clamp-3 text-slate-500 dark:text-slate-400'>
+                  <p className='line-clamp-3 text-border'>
                     {quoteData?.aboutQuote}
                   </p>
                 </th>

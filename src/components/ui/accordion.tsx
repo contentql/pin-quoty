@@ -22,7 +22,7 @@ export default function Accordion({
   }, [])
 
   return (
-    <div className='rounded-lg from-slate-100 to-slate-50 text-sm odd:bg-gradient-to-tr dark:from-slate-800/80 dark:to-slate-900'>
+    <div className='rounded-lg text-sm odd:bg-foreground'>
       <h3>
         <button
           className='flex w-full items-center justify-between px-5 py-3 text-left font-medium'
@@ -34,7 +34,7 @@ export default function Accordion({
           aria-controls={`accordion-text-${id}`}>
           <span>{title}</span>
           <svg
-            className='ml-8 shrink-0 fill-slate-400 dark:fill-slate-500'
+            className='ml-8 shrink-0 fill-border'
             width='12'
             height='12'
             xmlns='http://www.w3.org/2000/svg'>
@@ -43,7 +43,7 @@ export default function Accordion({
               width='12'
               height='2'
               rx='1'
-              className={`ttransform origin-center transition duration-200 ease-out ${accordionOpen && '!rotate-180'}`}
+              className={`origin-center transform transition duration-200 ease-out ${accordionOpen && '!rotate-180'}`}
             />
             <rect
               y='5'
@@ -59,7 +59,7 @@ export default function Accordion({
         id={`accordion-text-${id}`}
         role='region'
         aria-labelledby={`accordion-title-${id}`}
-        className={`grid overflow-hidden text-slate-500 transition-all duration-300 ease-in-out dark:text-slate-400 ${accordionOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
+        className={`grid overflow-hidden text-border transition-all duration-300 ease-in-out ${accordionOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
         <div className='overflow-hidden'>
           <p className='px-5 pb-3'>{children}</p>
         </div>

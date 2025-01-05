@@ -8,9 +8,7 @@ export default function Brief({
   return (
     <section className='py-8'>
       <h2 className='mb-2 text-lg font-semibold'>{aboutHeading}</h2>
-      <div className='space-y-4 text-slate-500 dark:text-slate-400'>
-        {children}
-      </div>
+      <div className='space-y-4 text-border'>{children}</div>
     </section>
   )
 }

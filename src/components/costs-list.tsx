@@ -39,9 +39,7 @@ export default function CostsList({
               }
 
               return (
-                <tr
-                  key={index}
-                  className='group from-slate-100 to-slate-50 odd:bg-gradient-to-tr dark:from-slate-800/80 dark:to-slate-900'>
+                <tr key={index} className='group odd:bg-foreground'>
                   <th
                     scope='row'
                     className='relative px-4 py-5 text-left font-normal first:rounded-l-lg last:rounded-r-lg'>
@@ -52,11 +50,11 @@ export default function CostsList({
                         {(costBreakdown as CostsBreakdownSelect)?.title}
                       </Link>
                     </div>
-                    <p className='text-slate-500 dark:text-slate-400'>
+                    <p className='text-border'>
                       {(costBreakdown as CostsBreakdownSelect)?.description}
                     </p>
                   </th>
-                  <td className="relative w-[1%] px-4 py-5 text-right font-semibold after:pointer-events-none after:absolute after:inset-0 after:flex after:items-center after:justify-end after:whitespace-nowrap after:rounded-lg after:bg-gradient-to-l after:from-white after:to-50% after:pr-4 after:font-medium after:tracking-normal after:text-blue-500 after:opacity-0 after:transition after:content-['Details_->'] first:rounded-l-lg last:rounded-r-lg group-odd:after:from-slate-50 group-hover:after:opacity-100 dark:after:from-slate-950 group-odd:dark:after:from-slate-900">
+                  <td className="relative w-[1%] px-4 py-5 text-right font-semibold after:pointer-events-none after:absolute after:inset-0 after:flex after:items-center after:justify-end after:whitespace-nowrap after:rounded-lg after:bg-gradient-to-l after:from-white after:to-50% after:pr-4 after:font-medium after:tracking-normal after:text-primary after:opacity-0 after:transition after:content-['Details_->'] first:rounded-l-lg last:rounded-r-lg group-odd:after:from-slate-50 group-hover:after:opacity-100 dark:after:from-slate-950 group-odd:dark:after:from-slate-900">
                     <Link
                       className='transition-opacity before:absolute before:inset-0 before:z-20 before:rounded-lg group-hover:opacity-0'
                       href='/details'

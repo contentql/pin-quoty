@@ -313,7 +313,7 @@ export default async function RootLayout({
       </head>
 
       <body
-        className={`${inter.variable} ${caveat.variable} ${orbiter.variable}  bg-white font-inter tracking-tight text-slate-800 antialiased dark:bg-slate-950 dark:text-slate-200`}>
+        className={`${inter.variable} ${caveat.variable} ${orbiter.variable}  bg-background font-inter tracking-tight text-text antialiased`}>
         <Provider>{children}</Provider>
 
         {/* Sonnar toast library */}
