@@ -199,9 +199,9 @@ export default async function RootLayout({
     bodyFont?.googleFontURL ?? '',
   ].filter(url => Boolean(url))
 
-  const response = await getCSSAndLinkGoogleFonts({
-    fontUrlList: googleFontsList,
-  })
+  // const response = await getCSSAndLinkGoogleFonts({
+  //  fontUrlList: googleFontsList,
+  // })
 
   // All the color variables are generated using generateThemeStyles function for light & dark mode
   const lightModeVariables = generateThemeVariables({
@@ -276,7 +276,7 @@ export default async function RootLayout({
         />
 
         {/* Link & Style tags are created from googleFonts response */}
-        {response.map(({ cssText, preloadLinks }, index) => (
+        {/* {response.map(({ cssText, preloadLinks }, index) => (
           <Fragment key={index}>
             {preloadLinks.map(({ href, type }) =>
               href ? (
@@ -292,7 +292,7 @@ export default async function RootLayout({
             )}
             <style dangerouslySetInnerHTML={{ __html: cssText }} />
           </Fragment>
-        ))}
+        ))} */}
 
         {/* following shadcn approach & generating lightMode & darkMode variables */}
         <style
