@@ -55,21 +55,21 @@ export const siteSettingsData: siteSettingsDataType = {
 
   themeSettings: {
     lightMode: {
-      primary: '#C084FC',
-      background: '#F8FAFC',
-      text: '#0F0F0F',
-      foreground: '#E2E8F0',
-      popover: '#000000',
-      border: '#000000',
+      primary: '#3b82f6',
+      background: '#ffffff',
+      text: '#1e293b',
+      foreground: '#f1f5f9',
+      popover: '#64748b',
+      border: '#64748b',
     },
 
     darkMode: {
-      primary: '#60A5FA',
-      background: '#0F172A',
-      text: '#FFFAFA',
-      foreground: '#1E293B',
-      popover: '#000000',
-      border: '#000000',
+      primary: '#3b82f6',
+      background: '#020617',
+      text: '#e2e8f0',
+      foreground: '#1e293b',
+      popover: '#94a3b8',
+      border: '#94a3b8',
     },
 
     fonts: {
