@@ -91,7 +91,7 @@ const SignUpForm: React.FC = () => {
           </Alert>
         ) : null}
         <h1 className=' mb-1 text-3xl font-semibold'>Sign Up</h1>
-        <p className='text-secondary mb-6'>
+        <p className='mb-6 text-border'>
           Join our Community with all time access and free{' '}
         </p>
 
@@ -187,7 +187,7 @@ const SignUpForm: React.FC = () => {
           </div>
           <div>
             <Button
-              className='btn w-full animate-shine bg-blue-500 bg-[linear-gradient(100deg,theme(colors.blue.500),45%,theme(colors.blue.400),55%,theme(colors.blue.500))] bg-[size:200%_100%] text-white shadow shadow-black/5 hover:bg-blue-600 hover:bg-[image:none]'
+              className='btn w-full animate-shine bg-primary bg-[linear-gradient(100deg,theme(colors.blue.500),45%,theme(colors.blue.400),55%,theme(colors.blue.500))] bg-[size:200%_100%] text-white shadow shadow-black/5 hover:bg-[image:none]'
               type='submit'
               isLoading={isSignUpPending}
               disabled={isSignUpPending}>
@@ -196,10 +196,10 @@ const SignUpForm: React.FC = () => {
           </div>
         </form>
 
-        <div className='text-secondary mt-8 text-center text-sm'>
+        <div className='mt-8 text-center text-sm text-border'>
           <p>
             Already have an account?{' '}
-            <Link href='/sign-in' className='text-blue-500 hover:underline'>
+            <Link href='/sign-in' className='text-primary hover:underline'>
               Sign In
             </Link>
           </p>

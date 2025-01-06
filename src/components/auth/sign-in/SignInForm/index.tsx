@@ -73,7 +73,7 @@ const SignInForm: React.FC = () => {
             </Alert>
           ) : null}
           <h1 className=' mb-1 text-3xl font-semibold'>Sign In</h1>
-          <p className='text-secondary mb-6'>
+          <p className='mb-6 text-border'>
             Join our Community with all time access and free{' '}
           </p>
 
@@ -120,10 +120,10 @@ const SignInForm: React.FC = () => {
               </LabelInputContainer>
             </div>
 
-            <p className='text-secondary mb-2 text-sm'>
+            <p className='mb-2 text-sm text-border'>
               Forgot your password?{' '}
               <Link
-                className='text-blue-500 hover:underline'
+                className='text-primary hover:underline'
                 href='/forgot-password'>
                 Reset it.
               </Link>
@@ -131,7 +131,7 @@ const SignInForm: React.FC = () => {
 
             <div>
               <Button
-                className='btn w-full animate-shine bg-blue-500 bg-[linear-gradient(100deg,theme(colors.blue.500),45%,theme(colors.blue.400),55%,theme(colors.blue.500))] bg-[size:200%_100%] text-white shadow shadow-black/5 hover:bg-blue-600 hover:bg-[image:none]'
+                className='btn w-full animate-shine bg-primary bg-[linear-gradient(100deg,theme(colors.blue.500),45%,theme(colors.blue.400),55%,theme(colors.blue.500))] bg-[size:200%_100%] text-white shadow shadow-black/5 hover:bg-[image:none]'
                 type='submit'
                 isLoading={isSignInPending}
                 disabled={isSignInPending}>
@@ -139,10 +139,10 @@ const SignInForm: React.FC = () => {
               </Button>
             </div>
           </form>
-          <div className='text-secondary mt-8 text-center text-sm'>
+          <div className='mt-8 text-center text-sm text-border'>
             <p>
               Don&apos;t have an account?{' '}
-              <Link href='/sign-up' className='text-blue-500 hover:underline'>
+              <Link href='/sign-up' className='text-primary hover:underline'>
                 Sign Up
               </Link>
             </p>
