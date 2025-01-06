@@ -1,4 +1,3 @@
-import { env } from '@env'
 import {
   Body,
   Button,
@@ -19,17 +18,19 @@ import {
 interface QuoteEmailTemplateProps {
   actionLabel: string
   buttonText: string
-  userName?: string
-  href?: string
-  image?: string
+  userName: string
+  href: string
+  image: string
+  logoTitle: string
 }
 
 export const QuoteEmailTemplate = ({
   actionLabel,
-
+  image,
   buttonText,
   userName,
   href,
+  logoTitle,
 }: QuoteEmailTemplateProps) => {
   return (
     <Html>
@@ -40,15 +41,10 @@ export const QuoteEmailTemplate = ({
           <Section>
             <Row style={header}>
               <Column>
-                <Img
-                  src={`${env.PAYLOAD_URL}/favicon.ico`}
-                  width='40'
-                  height='40'
-                  alt='ContentQL'
-                />
+                <Img src={`${image}`} width='40' height='40' alt={logoTitle} />
               </Column>
               <Column>
-                <Text style={title}>ContentQL</Text>
+                <Text style={title}>{logoTitle}</Text>
               </Column>
             </Row>
             <Hr style={hr} />

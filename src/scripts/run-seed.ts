@@ -74,6 +74,7 @@ const executeSeeding = async (): Promise<void> => {
   }).start()
 
   try {
+    await seedSiteSettings(spinner)
     await seedCostsBreakdown(spinner)
     await seedTerms(spinner)
     await seedForms(spinner) // Assume this returns seeded forms
@@ -82,7 +83,6 @@ const executeSeeding = async (): Promise<void> => {
     await seedQuoteDetailsPage(spinner)
     await seedCostsBreakdownDetailsPageData(spinner)
     await seedContactPage(spinner)
-    await seedSiteSettings(spinner)
   } catch (error) {
     console.error(chalk.red('Error running seeds:'), error)
   } finally {

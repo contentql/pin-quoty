@@ -23,7 +23,7 @@ export const seedRouter = router({
       // Ensure that the seeding functions are called in the correct order.
       // The blogs seeding depends on tags and authors being seeded first.
       // Therefore, make sure to seed tags and authors before seeding blogs.
-
+      await seedSiteSettings(spinner)
       await seedCostsBreakdown(spinner)
       await seedTerms(spinner)
       await seedForms(spinner) // Assume this returns seeded forms
@@ -32,7 +32,6 @@ export const seedRouter = router({
       await seedQuoteDetailsPage(spinner)
       await seedCostsBreakdownDetailsPageData(spinner)
       await seedContactPage(spinner)
-      await seedSiteSettings(spinner)
 
       // await seedSiteSettings(spinner)
 

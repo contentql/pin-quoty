@@ -4,6 +4,8 @@ import { CustomCollectionConfig } from '@contentql/core'
 import { revalidateQuotes } from '@/payload/hooks/revalidateQuotes'
 import { formatSlug } from '@/utils/formatSlug'
 
+import { sendEmailAfterProjectCreation } from './sendEmalAfterCreate'
+
 export const Quotes: CustomCollectionConfig = {
   slug: 'quotes',
   labels: {
@@ -162,6 +164,6 @@ export const Quotes: CustomCollectionConfig = {
     },
   ],
   hooks: {
-    afterChange: [revalidateQuotes],
+    afterChange: [revalidateQuotes, sendEmailAfterProjectCreation],
   },
 }
