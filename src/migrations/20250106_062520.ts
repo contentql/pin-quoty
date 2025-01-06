@@ -41,6 +41,19 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   await db.run(sql`CREATE INDEX \`pages_blocks_form_block_order_idx\` ON \`pages_blocks_form_block\` (\`_order\`);`)
   await db.run(sql`CREATE INDEX \`pages_blocks_form_block_parent_id_idx\` ON \`pages_blocks_form_block\` (\`_parent_id\`);`)
   await db.run(sql`CREATE INDEX \`pages_blocks_form_block_path_idx\` ON \`pages_blocks_form_block\` (\`_path\`);`)
+  await db.run(sql`CREATE TABLE \`pages_blocks_home\` (
+  	\`_order\` integer NOT NULL,
+  	\`_parent_id\` integer NOT NULL,
+  	\`_path\` text NOT NULL,
+  	\`id\` text PRIMARY KEY NOT NULL,
+  	\`heading\` text,
+  	\`block_name\` text,
+  	FOREIGN KEY (\`_parent_id\`) REFERENCES \`pages\`(\`id\`) ON UPDATE no action ON DELETE cascade
+  );
+  `)
+  await db.run(sql`CREATE INDEX \`pages_blocks_home_order_idx\` ON \`pages_blocks_home\` (\`_order\`);`)
+  await db.run(sql`CREATE INDEX \`pages_blocks_home_parent_id_idx\` ON \`pages_blocks_home\` (\`_parent_id\`);`)
+  await db.run(sql`CREATE INDEX \`pages_blocks_home_path_idx\` ON \`pages_blocks_home\` (\`_path\`);`)
   await db.run(sql`CREATE TABLE \`pages_blocks_disqus_comments\` (
   	\`_order\` integer NOT NULL,
   	\`_parent_id\` integer NOT NULL,
@@ -154,6 +167,20 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   await db.run(sql`CREATE INDEX \`_pages_v_blocks_form_block_order_idx\` ON \`_pages_v_blocks_form_block\` (\`_order\`);`)
   await db.run(sql`CREATE INDEX \`_pages_v_blocks_form_block_parent_id_idx\` ON \`_pages_v_blocks_form_block\` (\`_parent_id\`);`)
   await db.run(sql`CREATE INDEX \`_pages_v_blocks_form_block_path_idx\` ON \`_pages_v_blocks_form_block\` (\`_path\`);`)
+  await db.run(sql`CREATE TABLE \`_pages_v_blocks_home\` (
+  	\`_order\` integer NOT NULL,
+  	\`_parent_id\` integer NOT NULL,
+  	\`_path\` text NOT NULL,
+  	\`id\` integer PRIMARY KEY NOT NULL,
+  	\`heading\` text,
+  	\`_uuid\` text,
+  	\`block_name\` text,
+  	FOREIGN KEY (\`_parent_id\`) REFERENCES \`_pages_v\`(\`id\`) ON UPDATE no action ON DELETE cascade
+  );
+  `)
+  await db.run(sql`CREATE INDEX \`_pages_v_blocks_home_order_idx\` ON \`_pages_v_blocks_home\` (\`_order\`);`)
+  await db.run(sql`CREATE INDEX \`_pages_v_blocks_home_parent_id_idx\` ON \`_pages_v_blocks_home\` (\`_parent_id\`);`)
+  await db.run(sql`CREATE INDEX \`_pages_v_blocks_home_path_idx\` ON \`_pages_v_blocks_home\` (\`_path\`);`)
   await db.run(sql`CREATE TABLE \`_pages_v_blocks_disqus_comments\` (
   	\`_order\` integer NOT NULL,
   	\`_parent_id\` integer NOT NULL,
@@ -458,6 +485,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	\`reset_password_expiration\` text,
   	\`salt\` text,
   	\`hash\` text,
+  	\`_verified\` integer,
+  	\`_verificationtoken\` text,
   	\`login_attempts\` numeric DEFAULT 0,
   	\`lock_until\` text,
   	FOREIGN KEY (\`image_url_id\`) REFERENCES \`media\`(\`id\`) ON UPDATE no action ON DELETE set null
@@ -490,6 +519,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	\`costs_breakdown_heading\` text,
   	\`terms_heading\` text,
   	\`slug\` text,
+  	\`email\` text,
   	\`updated_at\` text DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')) NOT NULL,
   	\`created_at\` text DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')) NOT NULL,
   	\`_status\` text DEFAULT 'draft'
@@ -540,6 +570,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	\`version_costs_breakdown_heading\` text,
   	\`version_terms_heading\` text,
   	\`version_slug\` text,
+  	\`version_email\` text,
   	\`version_updated_at\` text,
   	\`version_created_at\` text,
   	\`version__status\` text DEFAULT 'draft',
@@ -1072,6 +1103,7 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   await db.run(sql`DROP TABLE \`pages_blocks_details\`;`)
   await db.run(sql`DROP TABLE \`pages_blocks_list\`;`)
   await db.run(sql`DROP TABLE \`pages_blocks_form_block\`;`)
+  await db.run(sql`DROP TABLE \`pages_blocks_home\`;`)
   await db.run(sql`DROP TABLE \`pages_blocks_disqus_comments\`;`)
   await db.run(sql`DROP TABLE \`pages_breadcrumbs\`;`)
   await db.run(sql`DROP TABLE \`pages\`;`)
@@ -1079,6 +1111,7 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   await db.run(sql`DROP TABLE \`_pages_v_blocks_details\`;`)
   await db.run(sql`DROP TABLE \`_pages_v_blocks_list\`;`)
   await db.run(sql`DROP TABLE \`_pages_v_blocks_form_block\`;`)
+  await db.run(sql`DROP TABLE \`_pages_v_blocks_home\`;`)
   await db.run(sql`DROP TABLE \`_pages_v_blocks_disqus_comments\`;`)
   await db.run(sql`DROP TABLE \`_pages_v_version_breadcrumbs\`;`)
   await db.run(sql`DROP TABLE \`_pages_v\`;`)
