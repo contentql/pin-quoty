@@ -22,6 +22,7 @@ import { seedQuoteDetailsPage } from '@/seed/quote-details-page'
 import { seedQuotes } from '@/seed/quotes'
 import { seedSiteSettings } from '@/seed/site-settings'
 import { seedTerms } from '@/seed/terms'
+import { seedUsers } from '@/seed/users/seed'
 
 // Extract database name from the URI
 const extractDatabaseName = (uri: string): string | null => {
@@ -74,6 +75,7 @@ const executeSeeding = async (): Promise<void> => {
   }).start()
 
   try {
+    await seedUsers({ spinner })
     await seedSiteSettings(spinner)
     await seedCostsBreakdown(spinner)
     await seedTerms(spinner)

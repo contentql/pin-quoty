@@ -10,6 +10,7 @@ import { seedQuoteDetailsPage } from '@/seed/quote-details-page'
 import { seedQuotes } from '@/seed/quotes'
 import { seedSiteSettings } from '@/seed/site-settings'
 import { seedTerms } from '@/seed/terms'
+import { seedUsers } from '@/seed/users/seed'
 import { publicProcedure, router } from '@/trpc'
 
 export const seedRouter = router({
@@ -23,6 +24,8 @@ export const seedRouter = router({
       // Ensure that the seeding functions are called in the correct order.
       // The blogs seeding depends on tags and authors being seeded first.
       // Therefore, make sure to seed tags and authors before seeding blogs.
+
+      await seedUsers({ spinner })
       await seedSiteSettings(spinner)
       await seedCostsBreakdown(spinner)
       await seedTerms(spinner)
