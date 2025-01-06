@@ -24,7 +24,6 @@ const Home: React.FC<HomeProps> = async ({ params, ...block }) => {
   }
 
   const { docs: quotesData } = await payload.find({ collection: 'quotes' })
-  console.log({ quotesData })
 
   return (
     <section className='center mx-auto w-full max-w-2xl py-24'>
