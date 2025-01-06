@@ -19,6 +19,8 @@ const Home: React.FC<HomeProps> = async ({ params, ...block }) => {
 
   const headerList = await headers()
   const user = await getCurrentUser(headerList)
+  console.log({ user })
+
   if (!user) {
     redirect('/sign-in')
   }
