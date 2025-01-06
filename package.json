@@ -8,7 +8,7 @@
     "devsafe": "rm -rf .next && cross-env NODE_OPTIONS=--no-deprecation next dev",
     "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
-    "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
+    "start": "cross-env NODE_OPTIONS=--no-deprecation payload migrate && next start",
     "lint": "cross-env NODE_OPTIONS=--no-deprecation next lint",
     "generate:types": "payload generate:types",
     "generate:importMap": "payload generate:importMap",
@@ -17,7 +17,9 @@
     "run:seed": "pnpx tsx ./src/scripts/run-seed.ts",
     "email": "email dev --dir src/emails",
     "yalc:contentql/core": "yalc add @contentql/core && yalc link @contentql/core",
-    "db:sync": "pnpx tsx ./src/scripts/sync-db.ts"
+    "db:sync": "pnpx tsx ./src/scripts/sync-db.ts",
+    "migrate:apply": "pnpm run payload migrate",
+    "ci": "payload migrate && pnpm build"
   },
   "dependencies": {
     "@clack/prompts": "^0.7.0",
