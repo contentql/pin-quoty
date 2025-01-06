@@ -26,7 +26,7 @@ const Home: React.FC<HomeProps> = async ({ params, ...block }) => {
   const { docs: quotesData } = await payload.find({ collection: 'quotes' })
 
   return (
-    <section className='center mx-auto w-full max-w-2xl py-24'>
+    <section className='center mx-auto w-full max-w-2xl px-4 py-24'>
       <h2 className='mb-5 text-lg font-semibold'>{block?.heading}</h2>
       <div className='overflow-x-auto'>
         <table className='w-full table-auto text-sm'>
