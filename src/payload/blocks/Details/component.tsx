@@ -2,8 +2,11 @@ import { Params } from '../types'
 import configPromise from '@payload-config'
 import { DetailsType } from '@payload-types'
 import { unstable_cache } from 'next/cache'
+import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
+
+import { getCurrentUser } from '@/utils/getCurrentUser'
 
 import AuthorDetails from './components/AuthorDetails'
 import BlogDetails from './components/BlogDetails'
@@ -134,7 +137,16 @@ const Details: React.FC<DetailsProps> = async ({ params, ...block }) => {
 
     case 'quotes': {
       const slug = params?.route?.at(-1) ?? ''
+      const headerList = await headers()
+      const user = await getCurrentUser(headerList)
+      const payload = await getPayload({
+        config: configPromise,
+      })
 
+      const { general: generalData } = await payload.findGlobal({
+        slug: 'site-settings',
+        draft: false,
+      })
       const { docs } = await unstable_cache(
         async () =>
           await payload.find({
@@ -157,7 +169,14 @@ const Details: React.FC<DetailsProps> = async ({ params, ...block }) => {
         return notFound()
       }
 
-      return <QuoteDetailsComponent quote={quote} slug={slug} />
+      return (
+        <QuoteDetailsComponent
+          quote={quote}
+          slug={slug}
+          user={user}
+          generalData={generalData}
+        />
+      )
     }
 
     case 'costsBreakdown': {
