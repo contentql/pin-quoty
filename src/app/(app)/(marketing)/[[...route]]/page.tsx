@@ -97,7 +97,10 @@ const Page = async ({ params }: { params: Promise<{ route: string[] }> }) => {
         const Block = blocksJSX[block.blockType] as React.FC<any>
 
         if (Block) {
-          if (block.blockType === 'Details' || 'FormBlock') {
+          if (
+            block.blockType === 'Details' ||
+            block.blockType === 'FormBlock'
+          ) {
             return (
               <main
                 key={index}
