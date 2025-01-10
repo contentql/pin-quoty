@@ -1,12 +1,12 @@
 import { collectionSlug, cqlConfig } from '@contentql/core'
 import { env } from '@env'
-import { sqliteAdapter } from '@payloadcms/db-sqlite'
 import { slateEditor } from '@payloadcms/richtext-slate'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
 import { ResetPassword } from '@/emails/reset-password'
 import { UserAccountVerification } from '@/emails/verify-email'
+import { migrations } from '@/migrations'
 import { blocksConfig } from '@/payload/blocks/blockConfig'
 import { CostsBreakdown } from '@/payload/collections/CostsBreakdown'
 import { Quotes } from '@/payload/collections/Quotes'
@@ -20,6 +20,17 @@ import { revalidateTags } from '@/payload/hooks/revalidateTags'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
+const convertRailwayURL = (url: string) => {
+  const railwayDomain = '.up.railway.app'
+  const contentqlDomain = '.contentql.io'
+  // Check if the URL ends with .up.railway.app or contains it
+  if (url.includes(railwayDomain)) {
+    return url.replace(railwayDomain, contentqlDomain)
+  }
+  // Return the original URL if it doesn't match
+  return url
+}
+
 export default cqlConfig({
   admin: {
     components: {
@@ -29,20 +40,17 @@ export default cqlConfig({
       },
     },
   },
-  cors: [env.PAYLOAD_URL],
-  csrf: [env.PAYLOAD_URL],
+  cors: [env.PAYLOAD_URL, convertRailwayURL(env.PAYLOAD_URL)],
+  csrf: [env.PAYLOAD_URL, convertRailwayURL(env.PAYLOAD_URL)],
 
   baseURL: env.PAYLOAD_URL,
 
   secret: env.PAYLOAD_SECRET,
 
-  db: sqliteAdapter({
-    client: {
-      // url: 'file:data/payload.db',
-      url: env.DATABASE_URI!,
-      authToken: env.DATABASE_SECRET,
-    },
-  }),
+  dbURI: env.DATABASE_URI,
+  dbSecret: env.DATABASE_SECRET,
+  syncDB: false,
+  prodMigrations: migrations,
 
   s3: {
     accessKeyId: env.S3_ACCESS_KEY_ID,
