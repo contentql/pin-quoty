@@ -38,9 +38,9 @@ export default cqlConfig({
 
   db: sqliteAdapter({
     client: {
-      // url: 'file:data/payload.db',
-      url: env.DATABASE_URI!,
-      authToken: env.DATABASE_SECRET,
+      url: 'file:data/payload.db',
+      // url: env.DATABASE_URI!,
+      // authToken: env.DATABASE_SECRET,
     },
   }),
 

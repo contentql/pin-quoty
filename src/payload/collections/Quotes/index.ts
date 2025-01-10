@@ -4,6 +4,7 @@ import { CustomCollectionConfig } from '@contentql/core'
 import { revalidateQuotes } from '@/payload/hooks/revalidateQuotes'
 import { formatSlug } from '@/utils/formatSlug'
 
+import CreateQuoteInLemonSqueezy from './CreateQuoteInLemonSqueezy'
 import { sendEmailAfterProjectCreation } from './sendEmalAfterCreate'
 
 export const Quotes: CustomCollectionConfig = {
@@ -164,6 +165,10 @@ export const Quotes: CustomCollectionConfig = {
     },
   ],
   hooks: {
-    afterChange: [revalidateQuotes, sendEmailAfterProjectCreation],
+    afterChange: [
+      revalidateQuotes,
+      sendEmailAfterProjectCreation,
+      CreateQuoteInLemonSqueezy,
+    ],
   },
 }
