@@ -5,6 +5,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { httpBatchLink } from '@trpc/client'
 import { KBarProvider } from 'kbar'
 import { AppProgressBar as ProgressBar } from 'next-nprogress-bar'
+import { ThemeProvider } from 'next-themes'
 import React, { useState } from 'react'
 import SuperJSON from 'superjson'
 
@@ -36,16 +37,18 @@ export default function Provider({ children }: { children: React.ReactNode }) {
   )
 
   return (
-    <trpc.Provider client={trpcClient} queryClient={queryClient}>
-      <QueryClientProvider client={queryClient}>
-        <ProgressBar
-          height='2px'
-          color='#A978DE'
-          options={{ showSpinner: false }}
-        />
-        <KBarProvider>{children}</KBarProvider>
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
-    </trpc.Provider>
+    <ThemeProvider defaultTheme='dark' enableSystem attribute='class'>
+      <trpc.Provider client={trpcClient} queryClient={queryClient}>
+        <QueryClientProvider client={queryClient}>
+          <ProgressBar
+            height='2px'
+            color='#A978DE'
+            options={{ showSpinner: false }}
+          />
+          <KBarProvider>{children}</KBarProvider>
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
+      </trpc.Provider>
+    </ThemeProvider>
   )
 }

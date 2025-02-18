@@ -1,10 +1,4 @@
-import {
-  borderRadius,
-  fontType,
-  getCSSAndLinkGoogleFonts,
-  hexToHsl,
-  mimeTypes,
-} from '@contentql/core'
+import { borderRadius, fontType, hexToHsl, mimeTypes } from '@contentql/core'
 import { env } from '@env'
 import configPromise from '@payload-config'
 import { SiteSetting } from '@payload-types'
@@ -13,7 +7,6 @@ import { unstable_cache } from 'next/cache'
 import { Caveat, Inter } from 'next/font/google'
 import localFont from 'next/font/local'
 import { getPayload } from 'payload'
-import { Fragment } from 'react'
 import { Toaster } from 'sonner'
 
 import '@/app/(app)/globals.css'
@@ -223,7 +216,7 @@ export default async function RootLayout({
   })
 
   return (
-    <html lang='en' className='dark' suppressHydrationWarning>
+    <html lang='en' suppressHydrationWarning>
       <head>
         <link rel='icon' type='image/x-icon' href={faviconUrl} />
         {/* Preloading the custom font given by the user */}
