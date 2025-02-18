@@ -57,7 +57,7 @@ export default function CostsList({
                   <td className="relative w-[1%] px-4 py-5 text-right font-semibold after:pointer-events-none after:absolute after:inset-0 after:flex after:items-center after:justify-end after:whitespace-nowrap after:rounded-lg after:bg-gradient-to-l after:from-white after:to-50% after:pr-4 after:font-medium after:tracking-normal after:text-primary after:opacity-0 after:transition after:content-['Details_->'] first:rounded-l-lg last:rounded-r-lg group-odd:after:from-slate-50 group-hover:after:opacity-100 dark:after:from-slate-950 group-odd:dark:after:from-slate-900">
                     <Link
                       className='transition-opacity before:absolute before:inset-0 before:z-20 before:rounded-lg group-hover:opacity-0'
-                      href='/details'
+                      href={`/quote/${slug}/costs-breakdown/${(costBreakdown as CostsBreakdownSelect)?.slug}`}
                       tabIndex={-1}>
                       {formatCurrency(currency)}
                     </Link>
