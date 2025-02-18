@@ -13,7 +13,10 @@ import { Quotes } from '@/payload/collections/Quotes'
 import { Terms } from '@/payload/collections/Terms'
 import { revalidateAuthors } from '@/payload/hooks/revalidateAuthors'
 import { revalidateBlogs } from '@/payload/hooks/revalidateBlogs'
-import { revalidatePages } from '@/payload/hooks/revalidatePages'
+import {
+  revalidatePagesAfterChange,
+  revalidatePagesAfterDelete,
+} from '@/payload/hooks/revalidatePages'
 import { revalidateSiteSettings } from '@/payload/hooks/revalidateSiteSettings'
 import { revalidateTags } from '@/payload/hooks/revalidateTags'
 
@@ -117,7 +120,8 @@ export default cqlConfig({
       slug: collectionSlug.pages,
       fields: [],
       hooks: {
-        afterChange: [revalidatePages],
+        afterChange: [revalidatePagesAfterChange],
+        afterDelete: [revalidatePagesAfterDelete],
       },
     },
     {

@@ -1,7 +1,10 @@
 import { isAdmin } from '../../access'
 import { CustomCollectionConfig } from '@contentql/core'
 
-import { revalidateQuotes } from '@/payload/hooks/revalidateQuotes'
+import {
+  revalidateQuotesAfterChange,
+  revalidateQuotesAfterDelete,
+} from '@/payload/hooks/revalidateQuotes'
 import { formatSlug } from '@/utils/formatSlug'
 
 import { sendEmailAfterProjectCreation } from './sendEmalAfterCreate'
@@ -164,6 +167,7 @@ export const Quotes: CustomCollectionConfig = {
     },
   ],
   hooks: {
-    afterChange: [revalidateQuotes, sendEmailAfterProjectCreation],
+    afterChange: [revalidateQuotesAfterChange, sendEmailAfterProjectCreation],
+    afterDelete: [revalidateQuotesAfterDelete],
   },
 }

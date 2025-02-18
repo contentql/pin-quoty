@@ -1,7 +1,10 @@
 import { isAdmin } from '../../access'
 import { CustomCollectionConfig } from '@contentql/core'
 
-import { revalidateCostsBreakdown } from '@/payload/hooks/revalidateCostsBreakdown'
+import {
+  revalidateCostsBreakdownAfterChange,
+  revalidateCostsBreakdownAfterDelete,
+} from '@/payload/hooks/revalidateCostsBreakdown'
 import { formatSlug } from '@/utils/formatSlug'
 
 export const CostsBreakdown: CustomCollectionConfig = {
@@ -81,6 +84,7 @@ export const CostsBreakdown: CustomCollectionConfig = {
     },
   ],
   hooks: {
-    afterChange: [revalidateCostsBreakdown],
+    afterChange: [revalidateCostsBreakdownAfterChange],
+    afterDelete: [revalidateCostsBreakdownAfterDelete],
   },
 }
